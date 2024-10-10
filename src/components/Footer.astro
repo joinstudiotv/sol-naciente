@@ -13,7 +13,7 @@ import src from '../images/logo-footer.svg'
 </article>
 <footer>
 	<div class="cont">
-		<div class="fc between">
+		<div class="content fc between">
 			<Image {src} alt="Logo de Sol Naciente" />		
 			<address class="fcol">
 				<p>Sol Naciente</p>
@@ -43,5 +43,23 @@ import src from '../images/logo-footer.svg'
 		border-radius: 2em 2em 0 0;
 		background: var(--text);
 		padding: 3em 3em 0 3em;
+	}
+	@media (max-width: 1260px) {
+		.title {
+			font-size: 7.4vw;
+		}
+	}
+	@media (max-width: 860px) {
+		img {
+			width: 100%;
+			height: auto;
+		}
+		.title {
+			font-size: 6.4vw;
+		}
+		.content {
+			flex-direction: column;
+			gap: 2em;
+		}
 	}
 </style>
