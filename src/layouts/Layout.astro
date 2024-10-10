@@ -1,50 +1,313 @@
 ---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
 interface Props {
 	title: string;
+	desc: string;
 }
 
-const { title } = Astro.props;
+const { title, desc } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es-PE">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={desc} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 	<body>
+		<Header />
 		<slot />
+		<Footer />
 	</body>
 </html>
+
 <style is:global>
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-Heavy.woff2') format('woff2');
+		font-weight: 900;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-HeavyOblique.woff2') format('woff2');
+		font-weight: 900;
+		font-style: oblique;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-ExtraBold.woff2') format('woff2');
+		font-weight: 800;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-ExtraBoldOblique.woff2') format('woff2');
+		font-weight: 800;
+		font-style: oblique;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-Bold.woff2') format('woff2');
+		font-weight: 700;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-BoldOblique.woff2') format('woff2');
+		font-weight: 700;
+		font-style: oblique;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-DemiBold.woff2') format('woff2');
+		font-weight: 600;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-DemiBoldOblique.woff2') format('woff2');
+		font-weight: 600;
+		font-style: oblique;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-Medium.woff2') format('woff2');
+		font-weight: 500;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-MediumOblique.woff2') format('woff2');
+		font-weight: 500;
+		font-style: oblique;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-Light.woff2') format('woff2');
+		font-weight: 300;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-LightOblique.woff2') format('woff2');
+		font-weight: 300;
+		font-style: oblique;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-Thin.woff2') format('woff2');
+		font-weight: 100;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'VisbyCF';
+		src: url('/fonts/VisbyCF-ThinOblique.woff2') format('woff2');
+		font-weight: 100;
+		font-style: oblique;
+	}
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--bg: white;
+		--text: black;
+		--gray: #d8d8d8;
+		--otro: #eeede7;
+
+		background: var(--bg);
+		scroll-behavior: smooth;
 	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
+	:root, input, button, select, textarea {
+		font-family: 'VisbyCF', system-ui, sans-serif;
+		font-size: 24px;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+	input, button, select, textarea {
+		padding: 0;
+		border: none;
+		margin: 0;
+		background: transparent;
+	}
+	img {
+		object-fit: cover;
+	}
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		min-height: 100dvh;
+	}
+	body,h1,h2,h3,h4,h5,h6,p,ul {
+		margin: 0;
+	}
+	img, video, svg {
+		display: block;
+	}
+	svg {
+		flex-shrink: 0;
+	}
+	h1,h2,h3,h4,h5,h6,strong {
+		color: var(--white);
+	}
+	button:active {
+		transform: scale(0.95);
+	}
+	a {
+		text-decoration: none;
+		font-weight: bold;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	.fc {
+		display: flex;
+		align-items: center;
+	}
+	.fcol {
+		display: flex;
+		flex-direction: column;
+	}
+	.between {
+		display: flex;
+		justify-content: space-between;
+	}
+	.cc {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.grow {
+		flex: 1;
+	}
+	.abs { position: absolute; }
+	.rel { position: relative; }
+
+	.p8 { padding: 2em; }
+	.p6 { padding: 1.5em; }
+	.p4 { padding: 1em; }
+	.p3 { padding: 0.75em; }
+	.p2 { padding: 0.5em; }
+	.p1 { padding: 0.25em; }
+
+	.px12 { padding-inline: 3em; }
+	.px8 { padding-inline: 2em; }
+	.px6 { padding-inline:  1.5em; }
+	.px5 { padding-inline:  1.25em; }
+	.px4 { padding-inline: 1em; }
+	.px3 { padding-inline: 0.75em; }
+	.px2 { padding-inline: 0.5em; }
+	.px1 { padding-inline: 0.25em; }
+
+	.py8 { padding-block: 2em; }
+	.py6 { padding-block: 1.5em; }
+	.py4 { padding-block: 1em; }
+	.py3 { padding-block: 0.75em; }
+	.py2 { padding-block: 0.5em; }
+	.py1 { padding-block: 0.25em; }
+
+	.g16 { gap: 4em; }
+	.g8 { gap: 2em; }
+	.g4 { gap: 1em; }
+
+	.h1, .h2 {
+		line-height: 1;
+	}
+	.h1 {
+		font-size: 2.75em;
+		font-weight: 900;
+	}
+	.h2 {
+		font-size: 1.75em;
+		font-weight: 800;
+	}
+	.title {
+		padding-top: 0.25em;
+		font-size: 8vw;
+		text-align: center;
+		font-weight: 900;
+		letter-spacing: 0.05em;
+		line-height: 1.6;
+	}
+	.toggle {
+		flex-shrink: 0;
+		--handleoffset: 1rem;
+		--handleoffsetcalculator: calc(var(--handleoffset) * -1);
+		--togglehandleborder: 0 0;
+		height: 1rem;
+		border: 2px solid var(--gray);
+		width: 2rem;
+		cursor: pointer;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		border-radius: var(--rounded-badge, 1.9rem);
+		background-color: var(--gray);
+		color: var(--gray);
+		transition: background, box-shadow var(--animation-input, 0.2s) ease-out;
+		box-shadow: var(--handleoffsetcalculator) 0 0 2px var(--bg) inset, 0 0 0 2px var(--bg) inset, var(--togglehandleborder);
+	}
+	.toggle:checked {
+		border: 2px solid var(--orange);
+		background-image: none;
+		background-color: var(--orange);
+		--handleoffsetcalculator: var(--handleoffset);
+	}
+
+	.btn {
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		text-align: center;
+		padding: 16px 32px;
+		border-radius: 32px;
+		cursor: pointer;
+		font-weight: 700;
+		border: none;
+		transition: .2s ease-in-out;
+	}
+
+	.btn-outline {
+		border: 1px solid var(--text);
+		background-color: var(--bg);
+		color: var(--text);
+	}
+	.btn-outline:hover, .btn-outline:focus {
+		text-decoration: none;
+		color: var(--bg);
+		background-color: var(--text);
+		outline: none;
+	}
+
+	input::placeholder {
+		color: var(--gray);
+	}
+	.cols {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@media (max-width: 1260px) {
+		:root, input, button, select, textarea {
+			font-size: 20px;
+		}
+	}
+	@media (max-width: 860px) {
+		:root, input, button, select, textarea {
+			font-size: 18px;
+		}
+		.h1 {
+			font-size: 2.5em;
+		}
+		.h2 {
+			font-size: 1.5em;
+		}
+		.cols {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

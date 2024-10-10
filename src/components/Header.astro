@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+
+import logo from '../images/logo.png'
+---
+
+<header class="rel">
+	<nav class="fc between">
+		<div class="fc">
+			<a class="cc" href="/">Inicio</a>
+			<a class="cc" href="/">Nosotros</a>
+			<a class="cc" href="/">Galería</a>
+		</div>
+		<div class="fc">
+			<a class="cc" href="/">Servicios</a>
+			<a class="cc" href="/">Cotización</a>
+			<a class="cc" href="/">Empleo</a>
+		</div>
+	</nav>
+	<div class="abs img cc">
+		<Image src={logo} alt="Logo de Sol Naciente"/>
+	</div>
+</header>
+
+<style>
+	nav {
+		border-bottom: 1px solid var(--gray);
+	}
+	a {
+		font-size: 18px;
+		width: 140px;
+    height: 94px;
+
+		color: var(--text);
+		background: var(--bg);
+		transition: .2s ease-in-out;
+	}
+	a:hover {
+		text-decoration: none;
+
+		color: var(--bg);
+		background: var(--text);
+	}
+	.img {
+    left: 50%;
+    transform: translateX(-50%);
+		bottom: -35%;
+
+		width: 96px;
+    height: 96px;
+    background: black;
+    border-radius: 50%;
+    padding: 22px 18px 18px;
+	}
+	img {
+		width: 100%;
+    height: auto;
+	}
+	@media (max-width: 1260px) {
+		a {
+			font-size: 16px;
+			width: 110px;
+		}
+	}
+	@media (max-width: 860px) {
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0.5em;
+		}
+		nav {
+			display: none;
+		}
+		.img {
+			position: static;
+			transform: translateY(0);
+
+			width: 76px;
+    	height: 76px;
+			padding: 20px 16px 16px;
+		}
+	}
+</style>

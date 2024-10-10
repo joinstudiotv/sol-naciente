@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+
+import src from '../images/logo-footer.svg'
+---
+
+<article class="px4 py8">
+	<form action="" class="fcol g4">
+		<h1>Contáctanos</h1>
+		<p>We’d love to hear from you! Whether you have a question, feedback, or need assistance, our team is here to help.</p>
+
+	</form>
+</article>
+<footer>
+	<div class="cont">
+		<div class="fc between">
+			<Image {src} alt="Logo de Sol Naciente" />		
+			<address class="fcol">
+				<p>Sol Naciente</p>
+			</address>
+		</div>
+		<h1 class="title">SOMOS SOL NACIENTE</h1>
+	</div>
+</footer>
+
+<style>
+	article {
+		text-align: center;
+		background: var(--otro);
+	}
+	.title {
+		color: #424344;
+		font-size: 7.6vw;
+	}
+	address {
+		font-style: normal;
+	}
+	footer {
+		color: white;
+		background: var(--otro);
+	}
+	footer .cont {
+		border-radius: 2em 2em 0 0;
+		background: var(--text);
+		padding: 3em 3em 0 3em;
+	}
+</style>
