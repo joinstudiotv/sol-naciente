@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 
 interface Props {
@@ -23,6 +24,7 @@ const { title, desc } = Astro.props;
 	<body>
 		<Header />
 		<slot />
+		<Contact />
 		<Footer />
 	</body>
 </html>
@@ -156,6 +158,7 @@ const { title, desc } = Astro.props;
 		transform: scale(0.95);
 	}
 	a {
+		color: inherit;
 		text-decoration: none;
 		font-weight: bold;
 	}
@@ -185,6 +188,8 @@ const { title, desc } = Astro.props;
 	.abs { position: absolute; }
 	.rel { position: relative; }
 
+	.p16 { padding: 4em; }
+	.p12 { padding: 3em; }
 	.p8 { padding: 2em; }
 	.p6 { padding: 1.5em; }
 	.p4 { padding: 1em; }
@@ -192,6 +197,7 @@ const { title, desc } = Astro.props;
 	.p2 { padding: 0.5em; }
 	.p1 { padding: 0.25em; }
 
+	.px16 { padding-inline: 4em; }
 	.px12 { padding-inline: 3em; }
 	.px8 { padding-inline: 2em; }
 	.px6 { padding-inline:  1.5em; }
@@ -201,6 +207,8 @@ const { title, desc } = Astro.props;
 	.px2 { padding-inline: 0.5em; }
 	.px1 { padding-inline: 0.25em; }
 
+	.py16 { padding-block: 4em; }
+	.py12 { padding-block: 3em; }
 	.py8 { padding-block: 2em; }
 	.py6 { padding-block: 1.5em; }
 	.py4 { padding-block: 1em; }
@@ -210,6 +218,7 @@ const { title, desc } = Astro.props;
 
 	.g16 { gap: 4em; }
 	.g8 { gap: 2em; }
+	.g6 { gap: 1.5em; }
 	.g4 { gap: 1em; }
 
 	.h1, .h2 {
@@ -283,7 +292,7 @@ const { title, desc } = Astro.props;
 		outline: none;
 	}
 
-	input::placeholder {
+	input::placeholder, textarea::placeholder {
 		color: var(--gray);
 	}
 	.cols {

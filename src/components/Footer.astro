@@ -4,33 +4,30 @@ import { Image } from "astro:assets";
 import src from '../images/logo-footer.svg'
 ---
 
-<article class="px4 py8">
-	<form action="" class="fcol g4">
-		<h1>Contáctanos</h1>
-		<p>We’d love to hear from you! Whether you have a question, feedback, or need assistance, our team is here to help.</p>
-
-	</form>
-</article>
 <footer>
-	<div class="cont">
-		<div class="content fc between">
-			<Image {src} alt="Logo de Sol Naciente" />		
+	<div class="cont fcol g4">
+		<div class="content between">
+			<Image {src} alt="Logo de Sol Naciente" />
+			<address>
+				<h2>Alimentos Sol Naciente</h2>
+			</address>
 			<address class="fcol">
 				<p>Sol Naciente</p>
+				<p>Av. La Paz 123,</p>
+				<p>Arequipa</p>
+				<a href="tel:+51987654321">987 654 321</a>
+				<a href="mailto:info@solnaciente.com">info@solnaciente.com</a>
 			</address>
 		</div>
-		<h1 class="title">SOMOS SOL NACIENTE</h1>
+		<h1 class="title">ALIMENTACIÓN CORPORATIVA</h1>
 	</div>
 </footer>
 
 <style>
-	article {
-		text-align: center;
-		background: var(--otro);
-	}
 	.title {
+		padding-top: 0;
 		color: #424344;
-		font-size: 7.6vw;
+		font-size: 5.9vw;
 	}
 	address {
 		font-style: normal;
@@ -42,11 +39,11 @@ import src from '../images/logo-footer.svg'
 	footer .cont {
 		border-radius: 2em 2em 0 0;
 		background: var(--text);
-		padding: 3em 3em 0 3em;
+		padding: 2em 2em 0 2em;
 	}
 	@media (max-width: 1260px) {
 		.title {
-			font-size: 7.4vw;
+			font-size: 5.7vw;
 		}
 	}
 	@media (max-width: 860px) {
@@ -55,7 +52,7 @@ import src from '../images/logo-footer.svg'
 			height: auto;
 		}
 		.title {
-			font-size: 6.4vw;
+			font-size: 5.3vw;
 		}
 		.content {
 			flex-direction: column;

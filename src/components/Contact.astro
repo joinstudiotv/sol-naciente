@@ -1,0 +1,103 @@
+<article class="px8">
+	<div class="cols">
+		<section>
+			<h1>Contáctanos</h1>
+			<p>¡Nos encantaría saber de usted! Si tiene alguna pregunta, comentario o necesita ayuda, estamos aquí para ayudarlo.</p>
+			<a href="tel:+987654321">+51 987 654 321</a>
+			<a href="mailto:info@solnaciente.com">info@solnaciente.com</a>
+		</section>
+		<form>
+			<div class="cols g6">
+				<label for="name">
+					<span>Nombre</span>
+					<input type="text" id="name" name="name" placeholder="José Perez">
+				</label>
+				<label for="company">
+					<span>Empresa</span>
+					<input type="text" id="company" name="company" placeholder="Minera Verde SAC">
+				</label>
+			</div>
+			<div class="cols g6">
+				<label for="email">
+					<span>Correo</span>
+					<input type="email" id="email" name="email" placeholder="su@correo.com">
+				</label>
+				<label for="tel">
+					<span>Teléfono</span>
+					<input type="tel" id="tel" name="tel" placeholder="987 654 321">
+				</label>
+			</div>
+			<label for="msg">
+				<span>Mensaje</span>
+				<textarea name="msg" id="msg" placeholder="Su mensaje" rows="6"></textarea>
+			</label>
+			<div class="fc">
+				<button type="button" class="btn btn-outline">ENVIAR</button>
+			</div>
+		</form>
+	</div>
+</article>
+
+<style>
+	article {
+		padding-block: 7em;
+	}
+	article, input, textarea {
+		font-size: 21px;
+		line-height: 28px;
+		background: var(--otro);
+	}
+	h1 {
+		font-size: 3em;
+		font-weight: 800;
+		margin-bottom: 0.75em;
+	}
+	section {
+		padding-right: 2em;
+	}
+	p {
+		margin-bottom: 3em;
+	}
+	a {
+		margin-block: 1em;
+		display: block;
+		font-weight: inherit;
+	}
+	label {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2em;
+	}
+	form .fc {
+		justify-content: end;
+	}
+	input {
+		height: 48px;
+	}
+	input, textarea {
+		border-bottom: 1px solid;
+	}
+	input:focus, textarea:focus {
+		outline: none;
+	}
+	@media (max-width: 1260px) {
+		article {
+			padding-block: 4em;
+		}
+	}
+	@media (max-width: 860px) {
+		article {
+			padding-inline: 1em;
+		}
+		article, input, textarea {
+			font-size: 18px;
+		}
+		section {
+			padding-right: 0;
+			text-align: center;
+		}
+		form .fc {
+			justify-content: center;
+		}
+	}
+</style>
