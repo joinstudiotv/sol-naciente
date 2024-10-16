@@ -40,7 +40,7 @@
 		<a href="/cotizacion">Cotización</a>
 		<a href="/empleo">Empleo</a>
 	</nav>
-	<h1>SOL NACIENTE</h1>
+	<h1 id="title">SOL NACIENTE</h1>
 </header>
 <script>
 	const bbtn = document.getElementById("bbtn") as HTMLButtonElement;
@@ -59,6 +59,22 @@
 		head.classList.remove('active')
 		body.classList.remove('active')
 	})
+
+	const title = document.getElementById('title') as HTMLElement;
+	const rect = title.getBoundingClientRect();
+
+	document.addEventListener('mousemove', function(e) {
+    // Coordenadas del mouse relativas al elemento
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // Normalizamos las coordenadas para obtener porcentajes
+    const xPercent = (mouseX / rect.width) * 100;
+    const yPercent = (mouseY / rect.height) * 100;
+
+    // Actualizamos el estilo del gradiente
+    title.style.background = `radial-gradient(circle farthest-side at ${xPercent}% ${yPercent}%, var(--yellow) 0%, var(--brown) 34%)`;
+});
 </script>
 
 <style>
@@ -101,6 +117,14 @@
 		margin-block: 48px 0;
 		font-size: 8.5vw;
     text-align: center;
+	}
+	#title {
+		background: var(--brown);
+		background: radial-gradient(circle farthest-side at center center, var(--yellow) 0%, var(--brown) 34%);
+		-webkit-background-clip: text !important;
+		background-clip: text !important;
+		-webkit-text-fill-color: transparent;
+		cursor: pointer; 
 	}
 	.mobile-nav {
 		display: flex;

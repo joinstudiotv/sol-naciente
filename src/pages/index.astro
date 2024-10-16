@@ -19,7 +19,7 @@ const descr = "...";
 <Layout {title} {descr}>
 	<section class="hero rel">
 		<div class="rel">
-			<video autoplay muted preload="auto" width="1920" height="1080" poster="/poster.avif">
+			<video autoplay loop muted preload="auto" width="1920" height="1080" poster="/poster.avif">
 				<source src="/output.webm" type="video/webm">
 				Your browser does not support the video tag.
 			</video>
@@ -151,7 +151,7 @@ const descr = "...";
     aspect-ratio: 2;
 	}
 	.platillos {
-		padding: 256px 32px 128px;
+		padding: 17vw 32px 128px;
 		gap: 32px;
 		color: white;
 		background: var(--yellow);
@@ -163,6 +163,7 @@ const descr = "...";
 	}
 	.platillos img {
 		width: 100%;
+		height: unset;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -190,11 +191,12 @@ const descr = "...";
 		gap: 32px;
 	}
 	@media (max-width: 1420px) {
-		/* .hero .fcol {
-			bottom: 0;
-			max-width: 800px;
-			margin: auto;
-		} */
+		.platillos {
+			padding: 256px 16px 64px;
+		}
+		.platillos img {
+			height: 212px;
+		}
 	}
 	@media (max-width: 960px) {
 		.cards {

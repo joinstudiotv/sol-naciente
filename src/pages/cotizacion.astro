@@ -1,16 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-import { Image } from "astro:assets";
-
-import bg from "../images/galeria.jpg";
-import img1 from "../images/gallery/img1.png";
-import img2 from "../images/gallery/img2.png";
-import img3 from "../images/gallery/img3.png";
-import img4 from "../images/gallery/img4.png";
-import img5 from "../images/gallery/img5.png";
-import img6 from "../images/gallery/img6.png";
-
 const title = "Sol Naciente | Cotización";
 const descr = "...";
 ---
@@ -34,16 +24,36 @@ const descr = "...";
 				<span>Asunto</span>
 				<textarea name="msg" id="msg" rows="3" placeholder="Buenas, me interesaría saber el precio del servicio de almuerzo ejecutivo para una empresa de 45 trabajadores."></textarea>
 			</label>
-			<button class="btn" type="submit">Enviar</button>
+			<button id="send" class="btn" type="submit">Enviar</button>
 		</section>
 	</article>
+	<script>
+		const btn = document.getElementById("send") as HTMLButtonElement;
+		const name_input = document.getElementById("name") as HTMLInputElement;
+		const company_input = document.getElementById("company") as HTMLInputElement;
+		const msg_input = document.getElementById("msg") as HTMLTextAreaElement;
+
+		btn.addEventListener("click", () => {
+			const name = name_input.value;
+			const company = company_input.value;
+			const msg = msg_input.value;
+
+			const whatsappMessage = `Hola, mi nombre es ${name} de la compañía ${company}. ${msg}`;
+			
+			const phoneNumber = "51910880595"; 
+			
+			const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(whatsappMessage)}`;
+			
+			window.open(whatsappURL, '_blank');
+		})
+	</script>
 </Layout>
 
 <style>
 	article {
 		padding: 128px 32px;
 		text-align: center;
-		gap: 64px;
+		gap: 128px;
 	}
 	section {
 		gap: 32px;
@@ -67,6 +77,7 @@ const descr = "...";
 	@media (max-width: 700px) {
 		article {
 			padding: 64px 16px;
+			gap: 64px;
 		}
 	}
 </style>
