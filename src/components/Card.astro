@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+
+const { name, desc, text, src } = Astro.props
+---
+<article>
+	<div class="rel">
+		<Image width={src.width/2} densities={[1,2]} src={src} alt="no seeee" format="avif" quality="50"/>
+		<section class="abs fcol">
+			<h2>{name}</h2>
+			<p>{desc}</p>
+		</section>
+	</div>
+	<p class="p4">{text}</p>
+</article>
+
+<style>
+	img {
+		aspect-ratio: 640 / 360;
+		width: 100%;
+		height: auto;
+		border-radius: 24px;
+	}
+	article {
+		background: var(--peach);
+		border-radius: 24px;
+	}
+	article>p {
+		text-align: center;
+	}
+	.fcol {
+		align-items: end;
+		inset: 0;
+		background: #00000057;
+		width: 100%;
+		padding: 32px;
+		border-radius: 24px;
+	}
+	.fcol h2, .fcol p {
+		color: white;
+	}
+</style>

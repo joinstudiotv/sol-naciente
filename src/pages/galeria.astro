@@ -1,0 +1,99 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { Image } from "astro:assets";
+
+import bg from "../images/galeria.jpg";
+import img1 from "../images/gallery/img1.png";
+import img2 from "../images/gallery/img2.png";
+import img3 from "../images/gallery/img3.png";
+import img4 from "../images/gallery/img4.png";
+import img5 from "../images/gallery/img5.png";
+import img6 from "../images/gallery/img6.png";
+
+const title = "Sol Naciente | Galería";
+const descr = "...";
+---
+
+<Layout {title} {descr}>
+	<div class="hero rel">
+		<div class="rel">
+			<Image width={bg.width/2} densities={[1,2]} src={bg} alt="Chefs" format="avif" quality="50"/>
+			<div class="color abs"></div>
+		</div>
+		<svg class="deco abs do" width="1240" height="40" viewBox="0 0 1240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0C186.083 25.577 396.792 40 620 40C843.208 40 1053.92 25.577 1240 0H0Z" fill="white"/>
+		</svg>
+		<svg class="deco abs mo" width="1240" height="80" viewBox="0 0 1240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0C186.083 51.154 396.792 80 620 80C843.208 80 1053.92 51.154 1240 0H0Z" fill="white"/>
+		</svg>
+	</div>
+	<article>
+		<Image width={img1.width/2} densities={[1,2]} src={img1} alt="Chefs" format="avif" quality="50"/>
+		<Image class="sec"  width={img4.width/2} densities={[1,2]} src={img4} alt="Chefs" format="avif" quality="50"/>
+		<Image width={img3.width/2} densities={[1,2]} src={img3} alt="Chefs" format="avif" quality="50"/>
+		<Image width={img5.width/2} densities={[1,2]} src={img5} alt="Chefs" format="avif" quality="50"/>
+		<Image width={img6.width/2} densities={[1,2]} src={img6} alt="Chefs" format="avif" quality="50"/>
+		<Image class="last" width={img2.width/2} densities={[1,2]} src={img2} alt="Chefs" format="avif" quality="50"/>
+	</article>
+</Layout>
+
+<style>
+	.deco {
+		top: 0;
+		width: 100%;
+    height: auto;
+	}
+	.color {
+		inset: 0;
+		background: linear-gradient(0, #f8ab2100 50%, var(--yellow));
+	}
+	.hero img {
+		filter: brightness(0.75);
+		width: 100%;
+		height: 87vh;
+	}	
+	article {
+		max-width: 1080px;
+		margin: auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 32px;
+		padding: 128px 16px;
+	}
+	article img {
+		border-radius: 16px;
+		width: 100%;
+		height: 100%;
+	}
+	.sec {
+		grid-column-start: 2;
+		grid-column-end: 3;
+		grid-row-start: 1;
+		grid-row-end: 3;
+	}
+	.last {
+		grid-column-start: 1;
+		grid-column-end: 3;
+		grid-row-start: 4;
+		grid-row-end: 5;
+	}
+	@media (max-width: 960px) {
+		.hero img {
+			height: 400px;
+		}
+		
+	}
+	@media (max-width: 700px) {
+		article{ 
+			padding: 64px 16px;
+			grid-template-columns: 1fr;
+		}
+		.sec, .last {
+			grid-column-start: unset;
+			grid-column-end: unset;
+			grid-row-start: unset;
+			grid-row-end: unset;
+		}
+	}
+</style>
