@@ -127,9 +127,21 @@ const { title, descr } = Astro.props
 	.btn {
 		padding: 0.5em 1em;
 		border-radius: 36px;
-		font-weight: 700;
+		font-weight: 500;
 		color: white;
 		text-decoration: none;
+	}
+	.btn-brown {
+		background: var(--brown);
+	}
+	.btn-brown:hover {
+		background: #493412;
+	}
+	.btn-yellow {
+		background: var(--yellow);
+	}
+	.btn-yellow:hover {
+		background: #ffc861;
 	}
 	@media (max-width: 1420px) {
 		:root, input, textarea, button {

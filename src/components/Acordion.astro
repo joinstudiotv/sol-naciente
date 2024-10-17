@@ -1,0 +1,202 @@
+---
+const { value } = Astro.props;
+---
+
+<div class="collapse collapse-plus">
+	<input type="radio" value={value} name="opciones" />
+	<div class="collapse-title text-xl font-medium">
+		{value}
+	</div>
+	<div class="collapse-content">
+		<h3>Descripción del Puesto</h3>
+		<p>
+			Estamos buscando un Cocinero/a talentoso y apasionado que se
+			una a nuestro equipo en Sol Naciente, una empresa de catering
+			reconocida por su servicio de calidad. Si disfrutas creando
+			platos innovadores y trabajando en un entorno dinámico, esta
+			oportunidad es para ti.
+		</p>
+		<h3>Requisitos</h3>
+		<p>
+			Experiencia previa como cocinero en catering, restaurantes o
+			banquetes (mínimo 2 años).
+		</p>
+		<ul>
+			<li>Conocimiento en técnicas culinarias y manejo de cocina a gran escala.</li>
+			<li>Habilidad para trabajar bajo presión y en equipo.</li>
+			<li>Creatividad y pasión por la gastronomía.</li>
+			<li>Disponibilidad para trabajar en horarios flexibles según la demanda de eventos.</li>
+		</ul>
+		<h3>Horario</h3>
+		<p>Tiempo completo, disponibilidad para trabajar fines de semana y festivos.</p>
+		<h3>Ubicación</h3>
+		<p>Cerro Colorado, Arequipa</p>
+		<h3>Beneficios</h3>
+		<ul>
+			<li>Oportunidades de desarrollo profesional y capacitación continua.</li>
+			<li>Descuentos en productos y servicios de Sol Naciente.</li>
+			<li>Entorno de trabajo dinámico y colaborativo.</li>
+		</ul>
+		<button class="btn btn-yellow postular" type="button">Postular</button>
+	</div>
+</div>
+
+<style>
+	.btn {
+		display: flex;
+    margin: 24px auto 16px;
+		background: var(--yellow);
+    align-self: center;
+	}
+	ul {
+		padding-inline-start: 28px;
+	}
+	h3 {
+		font-size: 24px;
+		margin-top: 16px;
+		margin-bottom: 8px;
+		font-weight: 600;
+	}
+	p, ul {
+		margin-block: 8px;
+		font-size: 20px;
+	}
+	input {
+		margin: 0;
+		border: none;
+	}
+	.collapse {
+		max-width: 700px;
+		background: var(--yellow);
+		position: relative;
+    display: grid;
+    overflow: hidden;
+    grid-template-rows: auto 0fr;
+    transition: grid-template-rows .2s;
+    width: 100%;
+    border-radius: 36px;
+    visibility: visible;
+	}
+
+	.collapse:not(.collapse-close):has(>input[type=checkbox]:checked),
+	.collapse:not(.collapse-close):has(>input[type=radio]:checked) {
+  	grid-template-rows: auto 1fr;
+	}
+
+	.collapse:not(td):not(tr):not(colgroup) {
+    visibility: visible;
+	}
+
+	:where(.collapse>input[type=checkbox]),
+	:where(.collapse>input[type=radio]) {
+    z-index: 1;
+	}
+
+	.collapse-title,
+	.collapse>input[type=checkbox],
+	.collapse>input[type=radio],
+	.collapse-content {
+    grid-column-start: 1;
+    grid-row-start: 1;
+	}
+	.collapse>input[type=checkbox], .collapse>input[type=radio] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    opacity: 0;
+	}
+	.collapse:not(.collapse-open):not(.collapse-close)>input[type=checkbox],
+	.collapse:not(.collapse-open):not(.collapse-close)>input[type=radio]:not(:checked),
+	.collapse:not(.collapse-open):not(.collapse-close)>.collapse-title {
+    cursor: pointer;
+	}
+
+	.collapse-title {
+    position: relative;
+		color: white;
+		font-size: 24px;
+	}
+
+	.collapse-title,
+	:where(.collapse>input[type=checkbox]),
+	:where(.collapse>input[type=radio]) {
+		width: 100%;
+		padding: 16px 32px;
+		transition: background-color .2s ease-out;
+	}
+
+	.collapse-plus>.collapse-title:after {
+    position: absolute;
+    display: block;
+    height: .5rem;
+    width: .5rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-timing-function: cubic-bezier(0,0,.2,1);
+    transition-duration: .3s;
+    top: .9rem;
+    inset-inline-end: 1.4rem;
+    content: "+";
+    pointer-events: none;
+	}
+
+	.collapse[open].collapse-plus>.collapse-title:after, .collapse-open.collapse-plus>.collapse-title:after, .collapse-plus:focus:not(.collapse-close)>.collapse-title:after, .collapse-plus:not(.collapse-close)>input[type=checkbox]:checked~.collapse-title:after, .collapse-plus:not(.collapse-close)>input[type=radio]:checked~.collapse-title:after {
+    content: "−";
+	}
+	.collapse-content {
+		background: #f2ebe5;
+    visibility: hidden;
+    grid-column-start: 1;
+    grid-row-start: 2;
+    min-height: 0;
+    transition: visibility .2s;
+    transition: padding .4w ease-out, background-color .2s ease-out;
+    padding-left: 32px;
+    padding-right: 32px;
+    cursor: unset;
+	}
+	.collapse[open]>.collapse-content,
+	.collapse-open>.collapse-content,
+	.collapse:focus:not(.collapse-close)>.collapse-content,
+	.collapse:not(.collapse-close)>input[type=checkbox]:checked~.collapse-content,
+	.collapse:not(.collapse-close)>input[type=radio]:checked~.collapse-content {
+    visibility: visible;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+	}
+	.collapse[open]>:where(.collapse-content),
+	.collapse-open>:where(.collapse-content),
+	.collapse:focus:not(.collapse-close)>:where(.collapse-content),
+	.collapse:not(.collapse-close)>:where(input[type=checkbox]:checked~.collapse-content),
+	.collapse:not(.collapse-close)>:where(input[type=radio]:checked~.collapse-content) {
+		padding-block: 16px;  
+		transition: padding .2s ease-out, background-color .2s ease-out;
+	}
+	@media (max-width: 700px) {
+		.collapse {
+			border-radius: 16px;
+		}
+		.collapse-title,
+		:where(.collapse>input[type=checkbox]),
+		:where(.collapse>input[type=radio]) {
+			padding: 16px;
+		}
+		.collapse-content {
+			padding-left: 16px;
+    	padding-right: 16px;
+		}
+		.collapse[open]>:where(.collapse-content),
+		.collapse-open>:where(.collapse-content),
+		.collapse:focus:not(.collapse-close)>:where(.collapse-content),
+		.collapse:not(.collapse-close)>:where(input[type=checkbox]:checked~.collapse-content),
+		.collapse:not(.collapse-close)>:where(input[type=radio]:checked~.collapse-content) {
+			padding-block: 0;
+		}
+		.collapse-title, h3 {
+			font-size: 18px;
+		}
+		p, ul {
+			font-size: 16px;
+		}
+	}
+</style>

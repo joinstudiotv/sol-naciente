@@ -1,11 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Acordion from "../components/Acordion.astro";
 
 import { Image } from "astro:assets";
 
 import bg from "../images/out.jpg";
-import acord from "../images/acordion.png";
-import seco from "../images/seco.png";
 
 const title = "Sol Naciente | Trabaja con nosostros";
 const descr = "...";
@@ -45,7 +44,7 @@ const descr = "...";
 			<p>Aquí no solo trabajas, ¡creces! Fomentamos el desarrollo profesional y oportunidades para que puedas avanzar en tu carrera.</p>
 		</article>
 		<article class="fcol fcc">
-			<h1>Oportunidades</h1>
+			<h1>Ambiente Colaborativo</h1>
 			<p>Valoramos el trabajo en equipo, contamos con un equipo dinámico y unido que busca ofrecer la mejor experiencia gastronómica.</p>
 		</article>
 		<article class="fcol fcc">
@@ -57,14 +56,53 @@ const descr = "...";
 			<p>Estamos comprometidos con mantener altos estándares, desde la preparación de alimentos hasta la atención al cliente.</p>
 		</article>
 	</section>
-	<form class="fcol fc">
+	<form class="posiciones fcol fc">
 		<h1>Posiciones abiertas</h1>
-		<Image width={acord.width/2} densities={[1,2]} src={acord} alt="Chefs" format="avif" quality="50"/>
-		<Image width={seco.width/2} densities={[1,2]} src={seco} alt="Chefs" format="avif" quality="50"/>
+		<div class="puestos fcol">
+			<Acordion value="Bartender - Sol Naciente Catering" />
+			<Acordion value="Mozo/a - Sol Naciente Catering" />
+			<Acordion value="Sous chef - Sol Naciente Catering" />
+		</div>
+		<p>Postula enviando tu CV para más información. ¡Estamos emocionados por conocerte!</p>
+		<label for="puesto">
+			<span>Puesto al que postulas</span>
+			<input type="text" name="puesto" id="puesto" value="Postule en cualquiera de los puestos de arriba">
+		</label>
+		<label for="cv">
+			<span>Adjunta tu CV</span>
+			<input type="file">
+		</label>
+		<button type="button" class="btn btn-brown">Enviar</button>
 	</form>
+	<script>
+		const buttons = document.querySelectorAll('.postular') as NodeListOf<HTMLButtonElement>;
+		const puestoInput = document.getElementById('puesto') as HTMLInputElement;
+
+		buttons.forEach(button => {
+			button.addEventListener('click', () => {
+				const selectedOption = document.querySelector('input[name="opciones"]:checked') as HTMLInputElement;
+
+				if (selectedOption && puestoInput) {
+					puestoInput.value = selectedOption.value;
+					// selectedOption.checked = false
+				} else {
+					console.log('No se ha seleccionado ninguna opción o el input no existe');
+				}
+			});
+		});
+	</script>
 </Layout>
 
 <style>
+	.posiciones label, .posiciones p {
+		max-width: 700px;
+	}
+	.posiciones label {
+		width: 100%;
+	}
+	.puestos {
+		gap: 32px;
+	}
 	.deco {
 		top: 0;
 		width: 100%;
@@ -167,6 +205,9 @@ const descr = "...";
 		}
 		.text	{
 			padding: 64px 16px;
+		}
+		form {
+			gap: 32px;
 		}
 	}
 </style>
