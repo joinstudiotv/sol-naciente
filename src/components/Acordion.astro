@@ -1,5 +1,5 @@
 ---
-const { value } = Astro.props;
+const { value, content } = Astro.props;
 ---
 
 <div class="collapse collapse-plus">
@@ -8,35 +8,7 @@ const { value } = Astro.props;
 		{value}
 	</div>
 	<div class="collapse-content">
-		<h3>Descripción del Puesto</h3>
-		<p>
-			Estamos buscando un Cocinero/a talentoso y apasionado que se
-			una a nuestro equipo en Sol Naciente, una empresa de catering
-			reconocida por su servicio de calidad. Si disfrutas creando
-			platos innovadores y trabajando en un entorno dinámico, esta
-			oportunidad es para ti.
-		</p>
-		<h3>Requisitos</h3>
-		<p>
-			Experiencia previa como cocinero en catering, restaurantes o
-			banquetes (mínimo 2 años).
-		</p>
-		<ul>
-			<li>Conocimiento en técnicas culinarias y manejo de cocina a gran escala.</li>
-			<li>Habilidad para trabajar bajo presión y en equipo.</li>
-			<li>Creatividad y pasión por la gastronomía.</li>
-			<li>Disponibilidad para trabajar en horarios flexibles según la demanda de eventos.</li>
-		</ul>
-		<h3>Horario</h3>
-		<p>Tiempo completo, disponibilidad para trabajar fines de semana y festivos.</p>
-		<h3>Ubicación</h3>
-		<p>Cerro Colorado, Arequipa</p>
-		<h3>Beneficios</h3>
-		<ul>
-			<li>Oportunidades de desarrollo profesional y capacitación continua.</li>
-			<li>Descuentos en productos y servicios de Sol Naciente.</li>
-			<li>Entorno de trabajo dinámico y colaborativo.</li>
-		</ul>
+		<Fragment set:html={content} />
 		<button class="btn btn-yellow postular" type="button">Postular</button>
 	</div>
 </div>
@@ -48,16 +20,17 @@ const { value } = Astro.props;
 		background: var(--yellow);
     align-self: center;
 	}
-	ul {
+	.collapse-content :global(ul) {
 		padding-inline-start: 28px;
 	}
-	h3 {
+	.collapse-content :global(h3) {
 		font-size: 24px;
 		margin-top: 16px;
 		margin-bottom: 8px;
 		font-weight: 600;
 	}
-	p, ul {
+	.collapse-content :global(p),
+	.collapse-content :global(ul) {
 		margin-block: 8px;
 		font-size: 20px;
 	}
@@ -122,22 +95,22 @@ const { value } = Astro.props;
 	:where(.collapse>input[type=radio]) {
 		width: 100%;
 		padding: 16px 32px;
+		padding-right: 36px;
 		transition: background-color .2s ease-out;
 	}
 
 	.collapse-plus>.collapse-title:after {
-    position: absolute;
-    display: block;
-    height: .5rem;
-    width: .5rem;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-timing-function: cubic-bezier(0,0,.2,1);
-    transition-duration: .3s;
-    top: .9rem;
-    inset-inline-end: 1.4rem;
-    content: "+";
-    pointer-events: none;
+		position: absolute;
+		display: block;
+		right: 16px;
+		transition-property: all;
+		transition-timing-function: cubic-bezier(.4,0,.2,1);
+		transition-timing-function: cubic-bezier(0,0,.2,1);
+		transition-duration: .3s;
+		top: 50%;
+		content: "+";
+		pointer-events: none;
+		transform: translateY(-50%);
 	}
 
 	.collapse[open].collapse-plus>.collapse-title:after, .collapse-open.collapse-plus>.collapse-title:after, .collapse-plus:focus:not(.collapse-close)>.collapse-title:after, .collapse-plus:not(.collapse-close)>input[type=checkbox]:checked~.collapse-title:after, .collapse-plus:not(.collapse-close)>input[type=radio]:checked~.collapse-title:after {
@@ -180,6 +153,7 @@ const { value } = Astro.props;
 		:where(.collapse>input[type=checkbox]),
 		:where(.collapse>input[type=radio]) {
 			padding: 16px;
+			padding-right: 36px;
 		}
 		.collapse-content {
 			padding-left: 16px;
@@ -192,10 +166,10 @@ const { value } = Astro.props;
 		.collapse:not(.collapse-close)>:where(input[type=radio]:checked~.collapse-content) {
 			padding-block: 0;
 		}
-		.collapse-title, h3 {
+		.collapse-title, .collapse-content :global(h3) {
 			font-size: 18px;
 		}
-		p, ul {
+		.collapse-content :global(p), .collapse-content :global(ul) {
 			font-size: 16px;
 		}
 	}

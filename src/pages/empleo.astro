@@ -6,6 +6,102 @@ import { Image } from "astro:assets";
 
 import bg from "../images/out.jpg";
 
+const empleos = [
+	{
+		name: 'Bartender - Sol Naciente Catering',
+		content: `
+		<h3>Descripción del Puesto</h3>
+		<p>
+			Estamos buscando un Bartender experimentado y creativo que se una a nuestro equipo en Sol Naciente Catering. Si te apasiona preparar bebidas innovadoras y brindar un excelente servicio al cliente en eventos exclusivos, esta oportunidad es para ti.
+		</p>
+		<h3>Requisitos</h3>
+		<p>
+			Experiencia previa como bartender en catering, bares o restaurantes (mínimo 2 años).
+		</p>
+		<ul>
+			<li>Conocimiento en coctelería clásica y moderna.</li>
+			<li>Habilidad para trabajar bajo presión y manejar múltiples pedidos simultáneamente.</li>
+			<li>Excelentes habilidades de comunicación y atención al cliente.</li>
+			<li>Disponibilidad para trabajar en horarios flexibles según la demanda de eventos.</li>
+		</ul>
+		<h3>Horario</h3>
+		<p>Tiempo completo, disponibilidad para trabajar fines de semana y festivos.</p>
+		<h3>Ubicación</h3>
+		<p>Cerro Colorado, Arequipa</p>
+		<h3>Beneficios</h3>
+		<ul>
+			<li>Oportunidades de desarrollo profesional y capacitación continua.</li>
+			<li>Descuentos en productos y servicios de Sol Naciente.</li>
+			<li>Entorno de trabajo dinámico y colaborativo.</li>
+		</ul>
+		`
+	},
+	{
+		name: "Mozo/a - Sol Naciente Catering",
+		content: `
+		<h3>Descripción del Puesto</h3>
+		<p>
+			Estamos buscando un Mozo/a con experiencia y actitud proactiva para unirse a nuestro equipo en Sol Naciente Catering. Si disfrutas ofreciendo un servicio de alta calidad y trabajando en un ambiente de eventos dinámico, esta oportunidad es para ti.
+		</p>
+		<h3>Requisitos</h3>
+		<p>
+			Experiencia previa como mozo/a en catering, restaurantes o eventos (mínimo 1 año).
+		</p>
+		<ul>
+			<li>Habilidad para gestionar múltiples mesas y atender a los comensales de manera eficiente.</li>
+			<li>Excelente actitud y disposición para brindar un servicio al cliente excepcional.</li>
+			<li>Capacidad para trabajar en equipo y bajo presión.</li>
+			<li>Disponibilidad para trabajar en horarios flexibles según la demanda de eventos.</li>
+		</ul>
+		<h3>Horario</h3>
+		<p>Tiempo completo, disponibilidad para trabajar fines de semana y festivos.</p>
+		<h3>Ubicación</h3>
+		<p>Cerro Colorado, Arequipa</p>
+		<h3>Beneficios</h3>
+		<ul>
+			<li>Oportunidades de desarrollo profesional y capacitación continua.</li>
+			<li>Descuentos en productos y servicios de Sol Naciente.</li>
+			<li>Entorno de trabajo dinámico y colaborativo.</li>
+		</ul>
+
+		`
+	},
+	{
+		name: "Sous chef - Sol Naciente Catering",
+		content: `
+		<h3>Descripción del Puesto</h3>
+		<p>
+			Estamos buscando un Cocinero/a talentoso y apasionado que se
+			una a nuestro equipo en Sol Naciente, una empresa de catering
+			reconocida por su servicio de calidad. Si disfrutas creando
+			platos innovadores y trabajando en un entorno dinámico, esta
+			oportunidad es para ti.
+		</p>
+		<h3>Requisitos</h3>
+		<p>
+			Experiencia previa como cocinero en catering, restaurantes o
+			banquetes (mínimo 2 años).
+		</p>
+		<ul>
+			<li>Conocimiento en técnicas culinarias y manejo de cocina a gran escala.</li>
+			<li>Habilidad para trabajar bajo presión y en equipo.</li>
+			<li>Creatividad y pasión por la gastronomía.</li>
+			<li>Disponibilidad para trabajar en horarios flexibles según la demanda de eventos.</li>
+		</ul>
+		<h3>Horario</h3>
+		<p>Tiempo completo, disponibilidad para trabajar fines de semana y festivos.</p>
+		<h3>Ubicación</h3>
+		<p>Cerro Colorado, Arequipa</p>
+		<h3>Beneficios</h3>
+		<ul>
+			<li>Oportunidades de desarrollo profesional y capacitación continua.</li>
+			<li>Descuentos en productos y servicios de Sol Naciente.</li>
+			<li>Entorno de trabajo dinámico y colaborativo.</li>
+		</ul>
+		`
+	}
+]
+
 const title = "Sol Naciente | Trabaja con nosostros";
 const descr = "...";
 ---
@@ -59,9 +155,9 @@ const descr = "...";
 	<form class="posiciones fcol fc">
 		<h1>Posiciones abiertas</h1>
 		<div class="puestos fcol">
-			<Acordion value="Bartender - Sol Naciente Catering" />
-			<Acordion value="Mozo/a - Sol Naciente Catering" />
-			<Acordion value="Sous chef - Sol Naciente Catering" />
+			{empleos.map((empleo) => (
+				<Acordion value={empleo.name} content={empleo.content} />
+			))}
 		</div>
 		<p>Postula enviando tu CV para más información. ¡Estamos emocionados por conocerte!</p>
 		<label for="puesto">
@@ -75,22 +171,39 @@ const descr = "...";
 		<button type="button" class="btn btn-brown">Enviar</button>
 	</form>
 	<script>
-		const buttons = document.querySelectorAll('.postular') as NodeListOf<HTMLButtonElement>;
-		const puestoInput = document.getElementById('puesto') as HTMLInputElement;
+    const buttons = document.querySelectorAll('.postular') as NodeListOf<HTMLButtonElement>;
+    const puestoInput = document.getElementById('puesto') as HTMLInputElement;
+    const radios = document.querySelectorAll('input[name="opciones"]');
+    
+    let lastCheckedRadio: HTMLInputElement | null = null;
 
-		buttons.forEach(button => {
+    radios.forEach(radio => {
+			radio.addEventListener('click', (e) => {
+				const currentRadio = e.target as HTMLInputElement;
+
+				// Si el radio fue previamente seleccionado (y es el mismo que se está cliqueando), lo desmarcamos
+				if (lastCheckedRadio === currentRadio) {
+					currentRadio.checked = false;
+					lastCheckedRadio = null; // reseteamos la referencia
+				} else {
+					// Si no, guardamos el radio seleccionado como el último en ser clickeado
+					lastCheckedRadio = currentRadio;
+				}
+			});
+    });
+
+    buttons.forEach(button => {
 			button.addEventListener('click', () => {
 				const selectedOption = document.querySelector('input[name="opciones"]:checked') as HTMLInputElement;
 
 				if (selectedOption && puestoInput) {
 					puestoInput.value = selectedOption.value;
-					// selectedOption.checked = false
 				} else {
 					console.log('No se ha seleccionado ninguna opción o el input no existe');
 				}
 			});
-		});
-	</script>
+    });
+</script>
 </Layout>
 
 <style>
