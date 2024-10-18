@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Acordion from "../components/Acordion.astro";
+export const prerender = false;
 
 import { Image } from "astro:assets";
-
+import Layout from "../layouts/Layout.astro";
+import Acordion from "../components/Acordion.astro";
 import bg from "../images/out.jpg";
 
 const empleos = [
@@ -63,7 +63,6 @@ const empleos = [
 			<li>Descuentos en productos y servicios de Sol Naciente.</li>
 			<li>Entorno de trabajo dinámico y colaborativo.</li>
 		</ul>
-
 		`
 	},
 	{
