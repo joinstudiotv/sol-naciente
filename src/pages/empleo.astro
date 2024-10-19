@@ -1,10 +1,20 @@
 ---
 import { supabase } from "../lib/supabase"
+import { createClient } from '@vercel/kv';
 
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Acordion from "../components/Acordion.astro";
 import bg from "../images/out.jpg";
+
+const { KV_REST_API_URL, KV_REST_API_TOKEN } = import.meta.env;
+
+const kv = createClient({
+  url: KV_REST_API_URL,
+  token: KV_REST_API_TOKEN,
+});
+
+const phone = await kv.get('phone') as string;
 
 // Consulta a Supabase para obtener los empleos
 const { data: empleos, error } = await supabase
@@ -73,27 +83,16 @@ const descr = "...";
 				<Acordion value={empleo.name} content={empleo.content} />
 			))}
 		</div>
-		<p>Postula enviando tu CV para más información. ¡Estamos emocionados por conocerte!</p>
-		<label for="puesto">
-			<span>Puesto al que postulas</span>
-			<input type="text" name="puesto" id="puesto" value="Postule en cualquiera de los puestos de arriba">
-		</label>
-		<label for="cv">
-			<span>Adjunta tu CV</span>
-			<input type="file">
-		</label>
-		<button type="button" class="btn btn-brown">Enviar</button>
 	</form>
-	<script>
-    const buttons = document.querySelectorAll('.postular') as NodeListOf<HTMLButtonElement>;
-    const puestoInput = document.getElementById('puesto') as HTMLInputElement;
+	<script is:inline define:vars={{phone}}>
+    const buttons = document.querySelectorAll('.postular');
     const radios = document.querySelectorAll('input[name="opciones"]');
     
-    let lastCheckedRadio: HTMLInputElement | null = null;
+    let lastCheckedRadio = null;
 
     radios.forEach(radio => {
 			radio.addEventListener('click', (e) => {
-				const currentRadio = e.target as HTMLInputElement;
+				const currentRadio = e.target;
 
 				// Si el radio fue previamente seleccionado (y es el mismo que se está cliqueando), lo desmarcamos
 				if (lastCheckedRadio === currentRadio) {
@@ -108,12 +107,14 @@ const descr = "...";
 
     buttons.forEach(button => {
 			button.addEventListener('click', () => {
-				const selectedOption = document.querySelector('input[name="opciones"]:checked') as HTMLInputElement;
+				const selectedOption = document.querySelector('input[name="opciones"]:checked');
 
-				if (selectedOption && puestoInput) {
-					puestoInput.value = selectedOption.value;
-				} else {
-					console.log('No se ha seleccionado ninguna opción o el input no existe');
+				if (selectedOption) {
+					const trabail = selectedOption.value;
+					const whatsappMessage = `Hola, estoy interesado en el puesto de ${trabail}`;
+					const whatsappURL = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(whatsappMessage)}`;
+					
+					window.open(whatsappURL, '_blank');
 				}
 			});
     });
