@@ -1,105 +1,20 @@
 ---
-export const prerender = false;
+import { supabase } from "../lib/supabase"
 
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Acordion from "../components/Acordion.astro";
 import bg from "../images/out.jpg";
 
-const empleos = [
-	{
-		name: 'Bartender - Sol Naciente Catering',
-		content: `
-		<h3>Descripción del Puesto</h3>
-		<p>
-			Estamos buscando un Bartender experimentado y creativo que se una a nuestro equipo en Sol Naciente Catering. Si te apasiona preparar bebidas innovadoras y brindar un excelente servicio al cliente en eventos exclusivos, esta oportunidad es para ti.
-		</p>
-		<h3>Requisitos</h3>
-		<p>
-			Experiencia previa como bartender en catering, bares o restaurantes (mínimo 2 años).
-		</p>
-		<ul>
-			<li>Conocimiento en coctelería clásica y moderna.</li>
-			<li>Habilidad para trabajar bajo presión y manejar múltiples pedidos simultáneamente.</li>
-			<li>Excelentes habilidades de comunicación y atención al cliente.</li>
-			<li>Disponibilidad para trabajar en horarios flexibles según la demanda de eventos.</li>
-		</ul>
-		<h3>Horario</h3>
-		<p>Tiempo completo, disponibilidad para trabajar fines de semana y festivos.</p>
-		<h3>Ubicación</h3>
-		<p>Cerro Colorado, Arequipa</p>
-		<h3>Beneficios</h3>
-		<ul>
-			<li>Oportunidades de desarrollo profesional y capacitación continua.</li>
-			<li>Descuentos en productos y servicios de Sol Naciente.</li>
-			<li>Entorno de trabajo dinámico y colaborativo.</li>
-		</ul>
-		`
-	},
-	{
-		name: "Mozo/a - Sol Naciente Catering",
-		content: `
-		<h3>Descripción del Puesto</h3>
-		<p>
-			Estamos buscando un Mozo/a con experiencia y actitud proactiva para unirse a nuestro equipo en Sol Naciente Catering. Si disfrutas ofreciendo un servicio de alta calidad y trabajando en un ambiente de eventos dinámico, esta oportunidad es para ti.
-		</p>
-		<h3>Requisitos</h3>
-		<p>
-			Experiencia previa como mozo/a en catering, restaurantes o eventos (mínimo 1 año).
-		</p>
-		<ul>
-			<li>Habilidad para gestionar múltiples mesas y atender a los comensales de manera eficiente.</li>
-			<li>Excelente actitud y disposición para brindar un servicio al cliente excepcional.</li>
-			<li>Capacidad para trabajar en equipo y bajo presión.</li>
-			<li>Disponibilidad para trabajar en horarios flexibles según la demanda de eventos.</li>
-		</ul>
-		<h3>Horario</h3>
-		<p>Tiempo completo, disponibilidad para trabajar fines de semana y festivos.</p>
-		<h3>Ubicación</h3>
-		<p>Cerro Colorado, Arequipa</p>
-		<h3>Beneficios</h3>
-		<ul>
-			<li>Oportunidades de desarrollo profesional y capacitación continua.</li>
-			<li>Descuentos en productos y servicios de Sol Naciente.</li>
-			<li>Entorno de trabajo dinámico y colaborativo.</li>
-		</ul>
-		`
-	},
-	{
-		name: "Sous chef - Sol Naciente Catering",
-		content: `
-		<h3>Descripción del Puesto</h3>
-		<p>
-			Estamos buscando un Cocinero/a talentoso y apasionado que se
-			una a nuestro equipo en Sol Naciente, una empresa de catering
-			reconocida por su servicio de calidad. Si disfrutas creando
-			platos innovadores y trabajando en un entorno dinámico, esta
-			oportunidad es para ti.
-		</p>
-		<h3>Requisitos</h3>
-		<p>
-			Experiencia previa como cocinero en catering, restaurantes o
-			banquetes (mínimo 2 años).
-		</p>
-		<ul>
-			<li>Conocimiento en técnicas culinarias y manejo de cocina a gran escala.</li>
-			<li>Habilidad para trabajar bajo presión y en equipo.</li>
-			<li>Creatividad y pasión por la gastronomía.</li>
-			<li>Disponibilidad para trabajar en horarios flexibles según la demanda de eventos.</li>
-		</ul>
-		<h3>Horario</h3>
-		<p>Tiempo completo, disponibilidad para trabajar fines de semana y festivos.</p>
-		<h3>Ubicación</h3>
-		<p>Cerro Colorado, Arequipa</p>
-		<h3>Beneficios</h3>
-		<ul>
-			<li>Oportunidades de desarrollo profesional y capacitación continua.</li>
-			<li>Descuentos en productos y servicios de Sol Naciente.</li>
-			<li>Entorno de trabajo dinámico y colaborativo.</li>
-		</ul>
-		`
-	}
-]
+// Consulta a Supabase para obtener los empleos
+const { data: empleos, error } = await supabase
+  .from('empleos')  // Nombre de tu tabla en Supabase
+  .select('*');     // Selecciona todas las columnas, ajusta según tu estructura
+
+// Verifica si hay un error
+if (error) {
+  console.error('Error al cargar los empleos:', error);
+}
 
 const title = "Sol Naciente | Trabaja con nosostros";
 const descr = "...";
@@ -154,7 +69,7 @@ const descr = "...";
 	<form class="posiciones fcol fc">
 		<h1>Posiciones abiertas</h1>
 		<div class="puestos fcol">
-			{empleos.map((empleo) => (
+			{empleos && empleos.map((empleo) => (
 				<Acordion value={empleo.name} content={empleo.content} />
 			))}
 		</div>

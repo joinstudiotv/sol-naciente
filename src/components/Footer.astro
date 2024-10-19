@@ -1,37 +1,48 @@
+---
+import { createClient } from '@vercel/kv';
+const { KV_REST_API_URL, KV_REST_API_TOKEN } = import.meta.env;
 
+const kv = createClient({
+  url: KV_REST_API_URL,
+  token: KV_REST_API_TOKEN,
+});
+
+const email = await kv.get('email') as string;
+const phone = await kv.get('phone') as string;
+---
 <article class="contact">
 	<section class="fcol">
 		<h1>Contáctanos</h1>
 		<p>¡Nos encantaría saber de usted! Si tiene alguna pregunta, comentario o necesita ayuda, nuestro equipo está aquí para ayudarlo.</p>
-		<a href="tel:+51910880595">+51 910 880 595</a> 
-		<a href="mailto:info@solnaciente.pe">info@solnaciente.pe</a>
+		<a href={`tel:+51${phone}`}>+51 {phone}</a> 
+		<a href={`mailto:${email}`}>{email}</a>
 	</section>
 	<form class="fcol" action="/">
 		<div class="cols">
-			<label for="name">
+			<label for="c-name">
 				<span>Nombre</span>
-				<input type="text" name="name" id="name" placeholder="José Perez Rodriguez" required>
+				<input type="text" name="c-name" id="c-name" placeholder="José Perez Rodriguez" required>
 			</label>
-			<label for="company">
+			<label for="c-company">
 				<span>Compañía</span>
-				<input type="text" name="company" id="company" placeholder="Asociación de Ejemplo" required>
+				<input type="text" name="c-company" id="c-company" placeholder="Asociación de Ejemplo" required>
 			</label>
 		</div>
-		<div class="cols">
-			<label for="email">
+		<!-- <div class="cols">
+			<label for="c-email">
 				<span>Correo</span>
-				<input type="email" name="email" id="email" placeholder="aquiva@tucorreo.com" required>
+				<input type="email" name="c-email" id="c-email" placeholder="aquiva@tucorreo.com" required>
 			</label>
-			<label for="phone">
+			<label for="c-phone">
 				<span>Teléfono</span>
-				<input type="tel" name="phone" id="phone" placeholder="+51 987 654 321" required>
+				<input type="tel" name="c-phone" id="c-phone" placeholder="+51 987 654 321" required>
 			</label>
-		</div>
-		<label for="msg">
+		</div> -->
+		<label for="c-msg">
 			<span>Mensaje</span>
-			<textarea name="msg" id="msg" rows="3" placeholder="Buenas, me interesaría saber el precio del servicio de almuerzo ejecutivo para una empresa de 45 trabajadores."></textarea>
+			<textarea name="c-msg" id="c-msg" rows="3" placeholder="Buenas, me interesaría saber el precio del servicio de almuerzo ejecutivo para una empresa de 45 trabajadores."></textarea>
 		</label>
-		<button class="btn btn-brown" type="submit">Enviar</button>
+		<button class="btn btn-brown" type="submit" id="submit-contact">Enviar</button>
 	</form>
 </article>
 
@@ -89,6 +100,24 @@
 		<p>&copy; 2024 Sol Naciente</p>
 	</div>
 </footer>
+
+<script is:inline define:vars={{email, phone}}>
+	const sc = document.getElementById("submit-contact")
+	const c_name = document.getElementById("c-name")
+	const c_company = document.getElementById("c-company")
+	const c_msg = document.getElementById("c-msg")
+
+	sc.addEventListener("click", () => {
+		const name = c_name.value;
+		const company = c_company.value;
+		const msg = c_msg.value;
+
+		const whatsappMessage = `Hola, me llamo ${name} de la compañía ${company}. ${msg}`;
+		const whatsappURL = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(whatsappMessage)}`;
+		
+		window.open(whatsappURL, '_blank');
+	})
+</script>
 
 <style>
 	.btn {

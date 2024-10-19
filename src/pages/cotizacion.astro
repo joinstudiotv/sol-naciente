@@ -1,8 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { createClient } from '@vercel/kv';
+const { KV_REST_API_URL, KV_REST_API_TOKEN } = import.meta.env;
+
+const kv = createClient({
+  url: KV_REST_API_URL,
+  token: KV_REST_API_TOKEN,
+});
+
 
 const title = "Sol Naciente | Cotización";
 const descr = "...";
+const phone = await kv.get('phone') as string;
 ---
 
 <Layout {title} {descr}>
@@ -27,11 +36,11 @@ const descr = "...";
 			<button id="send" class="btn btn-brown" type="submit">Enviar</button>
 		</section>
 	</article>
-	<script>
-		const btn = document.getElementById("send") as HTMLButtonElement;
-		const name_input = document.getElementById("name") as HTMLInputElement;
-		const company_input = document.getElementById("company") as HTMLInputElement;
-		const msg_input = document.getElementById("msg") as HTMLTextAreaElement;
+	<script is:inline define:vars={{phone}}>
+		const btn = document.getElementById("send") 
+		const name_input = document.getElementById("name")
+		const company_input = document.getElementById("company") 
+		const msg_input = document.getElementById("msg")
 
 		btn.addEventListener("click", () => {
 			const name = name_input.value;
@@ -39,10 +48,8 @@ const descr = "...";
 			const msg = msg_input.value;
 
 			const whatsappMessage = `Hola, mi nombre es ${name} de la compañía ${company}. ${msg}`;
-			
-			const phoneNumber = "51910880595"; 
-			
-			const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(whatsappMessage)}`;
+						
+			const whatsappURL = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(whatsappMessage)}`;
 			
 			window.open(whatsappURL, '_blank');
 		})
