@@ -1,11 +1,10 @@
 ---
+
 import { supabase } from "../lib/supabase"
 import { createClient } from '@vercel/kv';
 
-import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Acordion from "../components/Acordion.astro";
-import bg from "../images/out.jpg";
 
 const { KV_REST_API_URL, KV_REST_API_TOKEN } = import.meta.env;
 
@@ -33,7 +32,7 @@ const descr = "...";
 <Layout {title} {descr}>
 	<div class="hero rel">
 		<div class="rel">
-			<Image width={bg.width/2} densities={[1,2]} src={bg} alt="Chefs" format="avif" quality="50"/>
+			<img src="/images/out.avif" alt="Platillo bien preparado">
 			<div class="color abs"></div>
 		</div>
 		<svg class="deco abs do" width="1240" height="40" viewBox="0 0 1240 40" fill="none" xmlns="http://www.w3.org/2000/svg">

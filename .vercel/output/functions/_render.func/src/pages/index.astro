@@ -1,0 +1,250 @@
+---
+import Card from "../components/Card.astro";
+import Layout from "../layouts/Layout.astro";
+
+import { Image } from "astro:assets";
+
+import cubiertos from "../images/cubiertos.png";
+import hero from "../images/hero.jpg";
+import bg from "../images/fondo.png";
+import chef from "../images/valores.png";
+
+import f1 from "../images/f1.jpg";
+import tech from "../images/tech.jpg";
+
+const title = "Sol Naciente";
+const descr = "...";
+---
+
+<Layout {title} {descr}>
+	<section class="hero rel">
+		<div class="rel">
+			<video autoplay loop muted preload="auto" width="1920" height="1080" poster="/poster.avif">
+				<source src="/output.webm" type="video/webm">
+				Your browser does not support the video tag.
+			</video>
+			<div class="color abs"></div>
+		</div>
+		<svg class="deco abs do" width="1240" height="40" viewBox="0 0 1240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0C186.083 25.577 396.792 40 620 40C843.208 40 1053.92 25.577 1240 0H0Z" fill="white"/>
+		</svg>
+		<svg class="deco abs mo" width="1240" height="80" viewBox="0 0 1240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0C186.083 51.154 396.792 80 620 80C843.208 80 1053.92 51.154 1240 0H0Z" fill="white"/>
+		</svg>
+		<div class="abs big">
+			<div class="fcol p4 g4">
+				<h1>Alimentación <span>Corporativa</span> que Transforma</h1>
+				<p>
+					En <strong>Sol Naciente</strong>, llevamos calidad, sabor y bienestar a tu
+					empresa. Mejora la productividad y el clima laboral con soluciones
+					alimentarias personalizadas, seguras y deliciosas. ¡Nos adaptamos a tus
+					necesidades!
+				</p>
+			</div>
+		</div>
+	</section>
+	<section class="cards">
+		<Card
+			src={f1}
+			name="ORGULLO"
+			desc="Pasión por la calidad"
+			text="Nos enorgullece ofrecer alimentos de la más alta calidad, siempre frescos y con ingredientes seleccionados cuidadosamente para garantizar sabor y bienestar."
+		/>
+		<Card
+			src={tech}
+			name="INNOVACIÓN"
+			desc="Soluciones modernas"
+			text="Nos adaptamos a las últimas tendencias en alimentación y tecnología, brindando opciones innovadoras como estaciones de comida móvil y menús personalizados."
+		/>
+	</section>
+	<section class="platillos fcol">
+		<Image
+			width={cubiertos.width/2}
+			densities={[1,2]}
+			src={cubiertos}
+			alt="Chefs"
+			format="avif"
+			quality="50"
+		/>
+		<h1>Disfruta de nuestros platillos</h1>
+		<p>
+			Explora una amplia variedad de platillos que hemos creado para satisfacer
+			todos los gustos. Desde opciones saludables y equilibradas hasta comidas
+			gourmet, ofrecemos una experiencia culinaria completa.
+		</p>
+	</section>
+	<section class="rel valores">
+		<Image class="abs big-img" width={bg.width/2} densities={[1,2]} src={bg} alt="Chefs" format="avif" quality="50"/>
+		<div class="card">
+			<article class="fcol fc">
+				<h1>Nuestros Valores</h1>
+				<p>
+					En <strong>Sol Naciente</strong>, nos guiamos por principios de calidad,
+					innovación y responsabilidad. Cada uno de nuestros servicios está
+					diseñado para aportar bienestar a nuestros clientes, con un enfoque
+					sostenible y comprometido con el entorno.
+				</p>
+				<a class="btn btn-yellow" href="/about">Conócenos</a>
+			</article>
+			<Image width={chef.width/2} densities={[1,2]} src={chef} alt="Chefs" format="avif" quality="50"/>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.deco {
+		top: 0;
+	}
+	.cards {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 64px;
+		padding: 128px 32px 0;
+		max-width: 1080px;
+		margin: auto;
+	}
+	.hero .big {
+		width: 100%;
+		max-width: 1080px;
+		left: 0;
+		right: 0;
+		margin: auto;
+		bottom: 0;
+	}
+	.color {
+		background: linear-gradient(0, #1a1002c7, transparent);
+    inset: 0;
+	}
+	.hero .fcol {
+		padding: 32px;
+		width: 75%;
+	}
+	.hero h1, .hero p {
+		color: white;
+		text-align: start;
+	}
+	span {
+		color: var(--yellow);
+	}
+	svg {
+		width: 100%;
+    height: auto;
+	}
+	h1 {
+		text-align: center;
+	}
+	p {
+		text-align: center;
+	}
+	.big-img {
+		width: 100%;
+		height: calc(100% + 256px);
+		top: -128px;
+    z-index: -1;
+	}
+	.hero video {
+		height: unset;
+    width: 100%;
+    /* aspect-ratio: 2; */
+		aspect-ratio: auto 1736 / 971;
+	}
+	.platillos {
+		padding: 17vw 32px 128px;
+		gap: 32px;
+		color: white;
+		background: var(--yellow);
+		position: relative;
+	}
+	.platillos h1, .platillos p {
+		max-width: 600px;
+		margin: auto;
+	}
+	.platillos img {
+		width: 100%;
+		height: unset;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+	.platillos h1 {
+		color: white;
+	}
+	.card {
+		margin: 128px auto;
+		background: white;
+		max-width: 1048px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		border-radius: 48px;
+		overflow: hidden;
+	}
+	.card img {
+		width: 100%;
+		aspect-ratio: unset;
+		height: 100%;
+	}
+	article {
+		padding: 64px 32px;
+		gap: 32px;
+	}
+	@media (max-width: 1420px) {
+		.platillos {
+			padding: 256px 16px 64px;
+		}
+		.platillos img {
+			height: 212px;
+		}
+	}
+	@media (max-width: 960px) {
+		.cards {
+			padding: 64px 32px;
+			gap: 32px;
+		}
+		.hero img {
+			aspect-ratio: 1.25;
+		}
+		article {
+			padding: 32px 16px;
+			gap: 16px;
+		}
+		.card {
+			margin: 64px;
+		}
+	}
+	
+	@media (max-width: 700px) {
+		.color {
+			display: none;
+		}
+		.hero h1, .hero p {
+			color: var(--brown);
+			text-align: center;
+		}
+		.hero .big {
+			position: static;
+		}
+		.hero .fcol {
+			padding: 1em;
+			width: 100%;
+		}
+		.cards {
+			grid-template-columns: 1fr;
+			padding: 32px 16px;
+		}
+		.platillos {
+			padding: 128px 16px 32px;
+		}
+		.platillos img {
+			height: 100px;
+		}
+		.card {
+			grid-template-columns: 1fr;
+			border-radius: 0;
+			margin: 0
+		}
+		.card img {
+			grid-row: 1;
+		}
+	}
+</style>

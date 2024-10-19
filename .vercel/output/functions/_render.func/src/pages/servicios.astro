@@ -1,0 +1,213 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { Image } from "astro:assets";
+
+import bg from "../images/wasa.jpg";
+import serv1 from "../images/serv1.jpg";
+import serv2 from "../images/serv2.png";
+import serv3 from "../images/serv3.png";
+import serv4 from "../images/serv4.png";
+
+const title = "Sol Naciente | Servicios";
+const descr = "...";
+---
+
+<Layout {title} {descr}>
+	<div class="hero rel">
+		<div class="rel">
+			<Image width={bg.width/2} densities={[1,2]} src={bg} alt="Chefs" format="avif" quality="50"/>
+			<div class="color abs"></div>
+		</div>
+		<svg class="deco abs do" width="1240" height="40" viewBox="0 0 1240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0C186.083 25.577 396.792 40 620 40C843.208 40 1053.92 25.577 1240 0H0Z" fill="white"/>
+		</svg>
+		<svg class="deco abs mo" width="1240" height="80" viewBox="0 0 1240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0C186.083 51.154 396.792 80 620 80C843.208 80 1053.92 51.154 1240 0H0Z" fill="white"/>
+		</svg>
+		<h1 class="abs">Nuestros Servicios</h1>
+	</div>
+	<div class="sections fcol">
+		<section>
+			<div class="fcol">
+				<h1>Concesionario de Alimentos</h1>
+				<p>
+					En <strong>Sol Naciente</strong>, ofrecemos soluciones personalizadas de
+					alimentación para empresas e instituciones, entregando comida recién
+					preparada a aquellos que no tienen espacio o presupuesto para una cocina
+					propia. Además, brindamos el servicio In-House.
+				</p>
+			</div>
+			<Image
+				width={serv1.width/2}
+				densities={[1,2]}
+				src={serv1}
+				alt="Servicio 1"
+				format="avif"
+				quality="50"
+			/>
+		</section>
+		<section>
+			<Image
+				width={serv2.width/2}
+				densities={[1,2]}
+				src={serv2}
+				alt="Servicio 2"
+				format="avif"
+				quality="50"
+			/>
+			<div class="fcol">
+				<h1>Cafeterías Corporativas</h1>
+				<p>
+					Somos la mejor opción en cafeterías empresariales, proporcionando menús
+					balanceados, sándwiches, cafés y más, adaptados a las necesidades de cada
+					organización, siempre con alimentos saludables y de calidad.
+				</p>
+			</div>
+		</section>
+		<section>
+			<div class="fcol">
+				<h1>Catering, Buffets y Banquetes</h1>
+				<p>
+					Ofrecemos servicios de <strong>Catering, Buffets y Banquetes</strong> para
+					todo tipo de eventos: institucionales, empresariales o sociales. Con un
+					equipo experimentado, nos adaptamos a tus necesidades para garantizar que
+					tu evento sea un éxito.
+				</p>
+			</div>
+			<Image
+				width={serv3.width/2}
+				densities={[1,2]}
+				src={serv3}
+				alt="Servicio 3"
+				format="avif"
+				quality="50"
+			/>
+		</section>
+		<section>
+			<Image
+				width={serv4.width/2}
+				densities={[1,2]}
+				src={serv4}
+				alt="Servicio 4"
+				format="avif"
+				quality="50"
+			/>
+			<div class="fcol">
+				<h1>Calidad y Pasión por el Servicio</h1>
+				<p>
+					En <strong>Sol Naciente</strong>, la calidad es nuestra prioridad. Nos
+					comprometemos a ofrecer siempre lo mejor, cuidando cada detalle para
+					satisfacer a nuestros clientes.
+				</p>
+			</div>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.deco {
+		top: 0;
+		width: 100%;
+    height: auto;
+	}
+	.hero img {
+		width: 100%;
+		height: 400px;
+		filter: brightness(0.5);
+	}
+	.hero h1 {
+		color: white;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 32px;
+		text-align: center;
+	}
+	.sections {
+		padding-block: 128px;
+		gap: 128px;
+	}
+	section h1, p {
+		color: black;
+		text-align: inherit;
+	}
+	section {
+		width: 80vw;
+		display: grid;
+		align-items: center;
+		gap: 64px;
+		background: var(--peach);
+	}
+	section:nth-child(2n) {
+		border-radius: 0 360px 360px 0;
+		grid-template-columns: 1fr 1.5fr;
+	}
+	section:nth-child(2n - 1) {
+		border-radius: 360px 0 0 360px;
+		grid-template-columns: 1.5fr 1fr;
+		align-self: flex-end;
+	}
+	section:nth-child(2n) .fcol {
+		padding: 32px 128px 32px 0;
+		text-align: start;
+	}
+	section:nth-child(2n - 1) .fcol {
+		padding: 32px 0 32px 128px;
+		text-align: end;
+	}
+	section .fcol {
+		gap: 1em;
+	}
+	section img {
+		width: 100%;
+		min-height: 100%;
+		aspect-ratio: 1;
+		height: auto;
+	}
+	@media (max-width: 1420px) {
+		section {
+			width: 85vw;
+		}
+	}
+	@media (max-width: 960px) {
+		.hero img {
+			height: 256px;
+		}
+		.sections {
+			padding-block: 64px;
+			gap: 64px;
+		}
+		section {
+			gap: 32px;
+			width: 93vw;
+		}
+		section:nth-child(2n) .fcol {
+			padding: 32px 64px 32px 0;
+		}
+		section:nth-child(2n - 1) .fcol {
+			padding: 32px 0 32px 64px;
+		}
+	}
+	@media (max-width: 700px) {
+		.hero img {
+			height: 136px;
+		}
+		.hero h1 {
+			padding: 16px;
+		}
+		section {
+			width: 100%;
+			gap: 0;
+			grid-template-columns: 1fr !important;
+			border-radius: 0 !important;
+		}
+		section .fcol {
+			text-align: center !important;
+			padding: 32px 16px !important;
+		}
+		section img {
+			grid-row: 1;
+		}
+	}
+</style>

@@ -1,0 +1,241 @@
+---
+import { supabase } from "../lib/supabase"
+import { createClient } from '@vercel/kv';
+
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Acordion from "../components/Acordion.astro";
+import bg from "../images/out.jpg";
+
+const { KV_REST_API_URL, KV_REST_API_TOKEN } = import.meta.env;
+
+const kv = createClient({
+  url: KV_REST_API_URL,
+  token: KV_REST_API_TOKEN,
+});
+
+const phone = await kv.get('phone') as string;
+
+// Consulta a Supabase para obtener los empleos
+const { data: empleos, error } = await supabase
+  .from('empleos')  // Nombre de tu tabla en Supabase
+  .select('*');     // Selecciona todas las columnas, ajusta según tu estructura
+
+// Verifica si hay un error
+if (error) {
+  console.error('Error al cargar los empleos:', error);
+}
+
+const title = "Sol Naciente | Trabaja con nosostros";
+const descr = "...";
+---
+
+<Layout {title} {descr}>
+	<div class="hero rel">
+		<div class="rel">
+			<Image width={bg.width/2} densities={[1,2]} src={bg} alt="Chefs" format="avif" quality="50"/>
+			<div class="color abs"></div>
+		</div>
+		<svg class="deco abs do" width="1240" height="40" viewBox="0 0 1240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0C186.083 25.577 396.792 40 620 40C843.208 40 1053.92 25.577 1240 0H0Z" fill="white"/>
+		</svg>
+		<svg class="deco abs mo" width="1240" height="80" viewBox="0 0 1240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0C186.083 51.154 396.792 80 620 80C843.208 80 1053.92 51.154 1240 0H0Z" fill="white"/>
+		</svg>
+		<h1 class="abs">Sé parte de nuestra familia</h1>
+	</div>
+	<p class="text">
+		Buscamos personas <em>apasionadas</em> por la gastronomía y con 
+		<strong>espíritu creativo</strong> para unirse a nuestra familia.
+		Si te gusta innovar en la cocina, ofrecer un gran servicio y
+		formar parte de un equipo dinámico en el mundo del catering,
+		<strong>¡queremos conocerte!</strong>
+	</p>
+	<h1 class="porq">
+		¿Por qué Trabajar <br/>con Nosotros?
+	</h1>
+	<section class="cards fcc">
+		<article class="fcol fcc">
+			<h1>Empresa Reconocida</h1>
+			<p>Somos conocidos por nuestra dedicación a brindar un servicio de calidad y personalizado en cada evento.</p>
+		</article>
+		<article class="fcol fcc">
+			<h1>Oportunidades de Crecimiento</h1>
+			<p>Aquí no solo trabajas, ¡creces! Fomentamos el desarrollo profesional y oportunidades para que puedas avanzar en tu carrera.</p>
+		</article>
+		<article class="fcol fcc">
+			<h1>Ambiente Colaborativo</h1>
+			<p>Valoramos el trabajo en equipo, contamos con un equipo dinámico y unido que busca ofrecer la mejor experiencia gastronómica.</p>
+		</article>
+		<article class="fcol fcc">
+			<h1>Innovación y Creatividad</h1>
+			<p>Sol Naciente es el lugar ideal para que pongas tu creatividad a prueba.</p>
+		</article>
+		<article class="fcol fcc">
+			<h1>Compromiso con la Calidad</h1>
+			<p>Estamos comprometidos con mantener altos estándares, desde la preparación de alimentos hasta la atención al cliente.</p>
+		</article>
+	</section>
+	<form class="posiciones fcol fc">
+		<h1>Posiciones abiertas</h1>
+		<div class="puestos fcol">
+			{empleos && empleos.map((empleo) => (
+				<Acordion value={empleo.name} content={empleo.content} />
+			))}
+		</div>
+	</form>
+	<script is:inline define:vars={{phone}}>
+    const buttons = document.querySelectorAll('.postular');
+    const radios = document.querySelectorAll('input[name="opciones"]');
+    
+    let lastCheckedRadio = null;
+
+    radios.forEach(radio => {
+			radio.addEventListener('click', (e) => {
+				const currentRadio = e.target;
+
+				// Si el radio fue previamente seleccionado (y es el mismo que se está cliqueando), lo desmarcamos
+				if (lastCheckedRadio === currentRadio) {
+					currentRadio.checked = false;
+					lastCheckedRadio = null; // reseteamos la referencia
+				} else {
+					// Si no, guardamos el radio seleccionado como el último en ser clickeado
+					lastCheckedRadio = currentRadio;
+				}
+			});
+    });
+
+    buttons.forEach(button => {
+			button.addEventListener('click', () => {
+				const selectedOption = document.querySelector('input[name="opciones"]:checked');
+
+				if (selectedOption) {
+					const trabail = selectedOption.value;
+					const whatsappMessage = `Hola, estoy interesado en el puesto de ${trabail}`;
+					const whatsappURL = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(whatsappMessage)}`;
+					
+					window.open(whatsappURL, '_blank');
+				}
+			});
+    });
+</script>
+</Layout>
+
+<style>
+	.posiciones label, .posiciones p {
+		max-width: 700px;
+	}
+	.posiciones label {
+		width: 100%;
+	}
+	.puestos {
+		gap: 32px;
+	}
+	.deco {
+		top: 0;
+		width: 100%;
+    height: auto;
+	}
+	.hero img {
+		width: 100%;
+		height: 400px;
+		filter: brightness(0.5);
+	}
+	.hero h1 {
+		color: white;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 32px;
+		text-align: center;
+	}
+	.text {
+		text-align: center;
+		max-width: 45ch;
+		margin: auto;
+		padding: 128px 16px;
+	}
+	.porq {
+		color: white;
+		background: var(--yellow);
+		padding: 64px 16px;
+		line-height: normal;
+	}
+	.cards {
+		flex-wrap: wrap;
+		background-image: url(/small.avif);
+		background-image: -webkit-image-set(
+			url(/small.avif) 1x,
+			url(/big.avif) 2x
+		);
+		background-image: image-set(
+			url(/small.avif) 1x,
+			url(/big.avif) 2x
+		);
+		background-repeat: no-repeat;
+		background-size: cover;
+		gap: 32px;
+		padding: 128px 16px;
+	}
+	form {
+		padding: 128px 16px;
+		gap: 64px;
+	}
+	form h1 {
+		background: var(--yellow);
+		border-radius: 54px;
+		color: white;
+		padding: 0.25em 1em;
+	}
+	article {
+		background: #e9d9c7cd;
+		text-align: center;
+		gap: 32px;
+		padding: 64px 32px;
+		border-radius: 32px;
+		aspect-ratio: 1;
+		max-width: 376px;
+	}
+	article h1 {
+		font-size: 24px;
+	}
+	article p {
+		font-size: 20px;
+	}
+	@media (max-width: 1420px) {
+	
+	}
+	@media (max-width: 960px) {
+		.hero img {
+			height: 256px;
+		}
+		form img {
+			width: 100%;
+			height: auto;
+		}
+	}
+	@media (max-width: 700px) {
+		article {
+			gap: 16px;
+    	padding: 32px 16px;
+		}
+		article h1 {
+			font-size: 22px;
+		}
+		article p {
+			font-size: 16px;
+		}
+		.hero img {
+			height: 136px;
+		}
+		.hero h1 {
+			padding: 16px;
+		}
+		.text	{
+			padding: 64px 16px;
+		}
+		form {
+			gap: 32px;
+		}
+	}
+</style>
