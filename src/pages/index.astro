@@ -2,12 +2,6 @@
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
-import { Image } from "astro:assets";
-
-import cubiertos from "../images/cubiertos.png";
-import bg from "../images/fondo.png";
-import chef from "../images/valores.png";
-
 import f1 from "../images/f1.jpg";
 import tech from "../images/tech.jpg";
 
@@ -57,14 +51,7 @@ const descr = "...";
 		/>
 	</section>
 	<section class="platillos fcol">
-		<Image
-			width={cubiertos.width/2}
-			densities={[1,2]}
-			src={cubiertos}
-			alt="Chefs"
-			format="avif"
-			quality="50"
-		/>
+		<img src="/images/cubiertos.avif" alt="Platillo bien preparado">
 		<h1>Disfruta de nuestros platillos</h1>
 		<p>
 			Explora una amplia variedad de platillos que hemos creado para satisfacer
@@ -73,7 +60,7 @@ const descr = "...";
 		</p>
 	</section>
 	<section class="rel valores">
-		<Image class="abs big-img" width={bg.width/2} densities={[1,2]} src={bg} alt="Chefs" format="avif" quality="50"/>
+		<img class="abs big-img" src="/images/fondo.avif" alt="Platillo bien preparado">
 		<div class="card">
 			<article class="fcol fc">
 				<h1>Nuestros Valores</h1>
@@ -85,7 +72,7 @@ const descr = "...";
 				</p>
 				<a class="btn btn-yellow" href="/about">Conócenos</a>
 			</article>
-			<Image width={chef.width/2} densities={[1,2]} src={chef} alt="Chefs" format="avif" quality="50"/>
+			<img src="/images/valores.avif" alt="Platillo bien preparado">
 		</div>
 	</section>
 </Layout>
