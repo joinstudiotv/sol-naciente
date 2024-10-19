@@ -1,15 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-import { Image } from "astro:assets";
-
-import bg from "../images/coldplay.jpg";
-
-import top1 from "../images/us/top1.png";
-import top2 from "../images/us/top2.png";
-import top3 from "../images/us/top3.png";
-import top4 from "../images/us/top4.png";
-
 const title = "Sol Naciente | Nosotros";
 const descr = "...";
 ---
@@ -18,7 +9,7 @@ const descr = "...";
 	<section class="hero rel">
 		<div class="two">
 			<div class="rel">
-				<Image width={bg.width/2} densities={[1,2]} src={bg} alt="Chefs" format="avif" quality="50"/>
+				<img src="/images/coldplay.avif" alt="Platillo bien preparado">
 				<div class="color abs"></div>
 			</div>
 			<div class="fcol text">
@@ -103,10 +94,10 @@ const descr = "...";
 	</section>
 	<section class="rel company">
 		<div class="abs gallery fcc">
-			<Image width={top1.width/2} densities={[1,2]} src={top1} alt="Calidad" format="avif" quality="50"/>
-			<Image width={top2.width/2} densities={[1,2]} src={top2} alt="Calidad" format="avif" quality="50"/>
-			<Image width={top3.width/2} densities={[1,2]} src={top3} alt="Calidad" format="avif" quality="50"/>
-			<Image width={top4.width/2} densities={[1,2]} src={top4} alt="Calidad" format="avif" quality="50"/>
+			<img src="/images/top1.avif" alt="calidad">
+			<img src="/images/top2.avif" alt="calidad">
+			<img src="/images/top3.avif" alt="calidad">
+			<img src="/images/top4.avif" alt="calidad">
 		</div>
 		<div class="cont">
 			<h1>Nuestra Compañía</h1>
@@ -176,6 +167,11 @@ const descr = "...";
 		left: 0;
 		right: 0;
 		top: -200px;
+	}
+	.gallery img {
+		width: 217px;
+		height: 406px;
+		aspect-ratio: auto 406/217;
 	}
 	.gallery img:nth-child(2n - 1) {
 		transform: translateY(32px);

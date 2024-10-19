@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 
 import { Image } from "astro:assets";
 
-import bg from "../images/wasa.jpg";
 import serv1 from "../images/serv1.jpg";
 import serv2 from "../images/serv2.png";
 import serv3 from "../images/serv3.png";
@@ -16,7 +15,7 @@ const descr = "...";
 <Layout {title} {descr}>
 	<div class="hero rel">
 		<div class="rel">
-			<Image width={bg.width/2} densities={[1,2]} src={bg} alt="Chefs" format="avif" quality="50"/>
+			<img src="/images/wasa.avif" alt="calidad">
 			<div class="color abs"></div>
 		</div>
 		<svg class="deco abs do" width="1240" height="40" viewBox="0 0 1240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,24 +37,10 @@ const descr = "...";
 					propia. Además, brindamos el servicio In-House.
 				</p>
 			</div>
-			<Image
-				width={serv1.width/2}
-				densities={[1,2]}
-				src={serv1}
-				alt="Servicio 1"
-				format="avif"
-				quality="50"
-			/>
+			<img src="/images/serv1.avif" alt="calidad">
 		</section>
 		<section>
-			<Image
-				width={serv2.width/2}
-				densities={[1,2]}
-				src={serv2}
-				alt="Servicio 2"
-				format="avif"
-				quality="50"
-			/>
+			<img src="/images/serv2.avif" alt="calidad">
 			<div class="fcol">
 				<h1>Cafeterías Corporativas</h1>
 				<p>
@@ -75,24 +60,10 @@ const descr = "...";
 					tu evento sea un éxito.
 				</p>
 			</div>
-			<Image
-				width={serv3.width/2}
-				densities={[1,2]}
-				src={serv3}
-				alt="Servicio 3"
-				format="avif"
-				quality="50"
-			/>
+			<img src="/images/serv3.avif" alt="calidad">
 		</section>
 		<section>
-			<Image
-				width={serv4.width/2}
-				densities={[1,2]}
-				src={serv4}
-				alt="Servicio 4"
-				format="avif"
-				quality="50"
-			/>
+			<img src="/images/serv4.avif" alt="calidad">
 			<div class="fcol">
 				<h1>Calidad y Pasión por el Servicio</h1>
 				<p>
