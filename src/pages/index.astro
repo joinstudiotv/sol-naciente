@@ -2,9 +2,6 @@
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
-import f1 from "../images/f1.jpg";
-import tech from "../images/tech.jpg";
-
 const title = "Sol Naciente";
 const descr = "...";
 ---
@@ -38,13 +35,19 @@ const descr = "...";
 	</section>
 	<section class="cards">
 		<Card
-			src={f1}
+			src1="card1_1x"
+			src2="card1_2x"
+			width="640"
+			height="360"
 			name="ORGULLO"
 			desc="Pasión por la calidad"
 			text="Nos enorgullece ofrecer alimentos de la más alta calidad, siempre frescos y con ingredientes seleccionados cuidadosamente para garantizar sabor y bienestar."
 		/>
 		<Card
-			src={tech}
+			src1="card2_1x"
+			src2="card2_2x"
+			width="384"
+			height="256"
 			name="INNOVACIÓN"
 			desc="Soluciones modernas"
 			text="Nos adaptamos a las últimas tendencias en alimentación y tecnología, brindando opciones innovadoras como estaciones de comida móvil y menús personalizados."
