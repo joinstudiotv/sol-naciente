@@ -116,7 +116,7 @@ const descr = "...";
 				if (selectedOption) {
 					const trabail = selectedOption.value;
 					const whatsappMessage = `Hola, estoy interesado en el puesto de ${trabail}`;
-					const whatsappURL = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(whatsappMessage)}`;
+					const whatsappURL = `https://api.whatsapp.com/send?phone=51${phone}&text=${encodeURIComponent(whatsappMessage)}`;
 					
 					window.open(whatsappURL, '_blank');
 				}

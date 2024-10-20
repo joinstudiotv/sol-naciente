@@ -49,7 +49,7 @@ const phone = await kv.get('phone') as string;
 
 			const whatsappMessage = `Hola, mi nombre es ${name} de la compañía ${company}. ${msg}`;
 						
-			const whatsappURL = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(whatsappMessage)}`;
+			const whatsappURL = `https://api.whatsapp.com/send?phone=51${phone}&text=${encodeURIComponent(whatsappMessage)}`;
 			
 			window.open(whatsappURL, '_blank');
 		})

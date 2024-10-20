@@ -103,7 +103,7 @@ const phone = await kv.get('phone') as string;
 		const msg = c_msg.value;
 
 		const whatsappMessage = `Hola, me llamo ${name} de la compañía ${company}. ${msg}`;
-		const whatsappURL = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(whatsappMessage)}`;
+		const whatsappURL = `https://api.whatsapp.com/send?phone=51${phone}&text=${encodeURIComponent(whatsappMessage)}`;
 		
 		window.open(whatsappURL, '_blank');
 	})
