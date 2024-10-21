@@ -1,8 +1,6 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@vercel/kv';
 
-export const prerender = false;
-
 export const POST: APIRoute = async ({ request }) => {
   const { KV_REST_API_URL, KV_REST_API_TOKEN } = import.meta.env;
   const kv = createClient({ url: KV_REST_API_URL, token: KV_REST_API_TOKEN });
