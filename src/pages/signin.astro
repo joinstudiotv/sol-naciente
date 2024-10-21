@@ -7,7 +7,7 @@ const accessToken = cookies.get("sb-access-token");
 const refreshToken = cookies.get("sb-refresh-token");
 
 if (accessToken && refreshToken) {
-  return redirect("/dashboard");
+	return redirect("/dashboard");
 }
 
 const title = "Sol Naciente | Iniciar Sesión";
@@ -15,12 +15,81 @@ const descr = "Iniciar Sesión para cambiar los empleos :p";
 ---
 
 <Admin {title} {descr}>
-  <h1>Sign in</h1>
-  <form action="/api/auth/signin" method="post">
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" />
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-    <button type="submit">Login</button>
-  </form>
+	<main class="fcc">
+		<form class="fcol" action="/api/auth/signin" method="post" id="login-form">
+			<h1>Sol Naciente</h1>
+			<label for="email">
+				<span>Correo</span>
+				<input type="email" name="email" id="email" placeholder="correo@gmail.com" required />
+			</label>
+			<label for="password">
+				<span>Contraseña</span>
+				<input type="password" name="password" id="password" placeholder="••••••••" required/>
+			</label>
+			<button type="submit" class="btn btn-yellow">Ingresar</button>
+			<p id="error-message" class="error"></p>
+		</form>
+	</main>
+	<script>
+		const btn = document.querySelector('.btn-yellow') as HTMLButtonElement;
+		const errorMessage = document.getElementById('error-message') as HTMLElement;
+
+		document.getElementById('login-form')?.addEventListener('submit', async function (e: Event) {
+			e.preventDefault();
+
+			// Mensaje de carga
+			btn.innerText = 'Cargando...'
+
+			// Obtener los datos del formulario
+			const email = (document.getElementById('email') as HTMLInputElement).value;
+			const password = (document.getElementById('password') as HTMLInputElement).value;
+
+			// Limpiar mensajes de error previos
+			errorMessage.style.display = 'none';
+			errorMessage.textContent = '';
+
+			// Enviar los datos usando fetch
+			try {
+				const response = await fetch('/api/auth/signin', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded',
+					},
+					body: new URLSearchParams({ email, password })
+				});
+
+				// Procesar la respuesta
+				if (response.ok) {
+					window.location.href = '/dashboard';
+				} else {
+					errorMessage.style.display = 'block';
+					errorMessage.textContent = 'Credenciales incorrectas. Vuelva a intentarlo.'
+				}
+			} catch (error) {
+				errorMessage.textContent = 'Estamos teniendo errores con el servidor.';
+			}
+
+			btn.innerText = 'Ingresar'
+		});
+	</script>
 </Admin>
+
+<style>
+	main {
+		min-height: 100dvh;
+	}
+	form {
+		gap: 1em;
+		padding: 2em;
+		width: 100%;
+		max-width: 45ch;
+		background: var(--peach);
+		border-radius: 1em;
+	}
+	@media (max-width: 700px) {
+		form {
+			margin: 1em;
+			padding: 2em 1em;
+		}
+	}
+</style>

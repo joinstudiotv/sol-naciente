@@ -8,13 +8,15 @@ const kv = createClient({
 });
 
 const email = await kv.get('email') as string;
-const phone = await kv.get('phone') as string;
+const phone = await kv.get('phone') as number;
+
+const phone_string = phone.toString().substring(0, 3) + ' ' + phone.toString().substring(3, 6) + ' ' + phone.toString().substring(6, 9);
 ---
 <article class="contact">
 	<section class="fcol">
 		<h1>Contáctanos</h1>
 		<p>¡Nos encantaría saber de usted! Si tiene alguna pregunta, comentario o necesita ayuda, nuestro equipo está aquí para ayudarlo.</p>
-		<a href={`tel:+51${phone}`}>+51 {phone}</a> 
+		<a href={`tel:+51${phone}`}>+51 {phone_string}</a> 
 		<a href={`mailto:${email}`}>{email}</a>
 	</section>
 	<form class="fcol" action="/">
@@ -86,7 +88,7 @@ const phone = await kv.get('phone') as string;
 		</div>
 	</div>
 	<div class="fc between">
-		<p>Made by Join Studio</p>
+		<p>Made by <a href="https://www.instagram.com/join_studio_tv/" target="_blank">Join Studio</a></p>
 		<p>&copy; 2024 Sol Naciente</p>
 	</div>
 </footer>
@@ -155,6 +157,8 @@ const phone = await kv.get('phone') as string;
 	.redes svg:hover path {
 		fill: #452d07;
 	}
+	a { text-decoration: none; color: white}
+	a:hover { text-decoration: underline;}
 
 	/* ============================== footer ============================== */
 

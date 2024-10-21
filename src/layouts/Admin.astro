@@ -32,6 +32,7 @@ const { title, descr } = Astro.props
 		box-sizing: border-box;
 	}
 	:root {
+		--red: #f84c21;
 		--brown: #291B05;
 		--yellow: #F8AB21;
 		--gray: #909090;
@@ -107,6 +108,16 @@ const { title, descr } = Astro.props
 		display: none;
 	}
 	
+	span {
+		font-weight: 400;
+	}
+	.error {
+		display: none;
+		color: var(--red);
+		background: #ffbbab;
+		padding: 1em;
+		border-radius: 0.5em;
+	}
 
 	.btn {
 		padding: 0.5em 1em;
@@ -126,6 +137,12 @@ const { title, descr } = Astro.props
 	}
 	.btn-yellow:hover {
 		background: #ffc861;
+	}
+	.btn-red {
+		background: var(--red);
+	}
+	.btn-red:hover {
+		background: #FF704F;
 	}
 	@media (max-width: 1420px) {
 		:root, input, textarea, button {
