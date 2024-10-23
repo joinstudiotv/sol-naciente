@@ -18,7 +18,6 @@ const { title, descr } = Astro.props
 		<meta name="description" content={descr}>
 		<meta name="generator" content={Astro.generator} />
 		<meta name="theme-color" content="#F8AB21">
-		<link rel="preload" href="/portofino.woff2" as="font" type="font/woff2" crossorigin>
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	</head>
@@ -33,23 +32,21 @@ const { title, descr } = Astro.props
 	}
 	:root {
 		--red: #f84c21;
-		--brown: #291B05;
-		--yellow: #F8AB21;
-		--gray: #909090;
+		--green: #5FA840;
+		--yellow: #F8BB21;
 		--peach: #EFECE8;
+		--text: #180f09;
+		--bg: white;
 	}
 	:root, input, textarea, button {
 		font-family: 'Poppins';
 		font-weight: 300;
-		font-size: 24px;
+		font-size: 20px;
 	}
 	body {
 		margin: 0;
 	}
-	body.active {
-		overflow: hidden;
-	}
-	img, svg, video {
+	img, svg {
 		display: block;
 		flex-shrink: 0;
 		object-fit: cover;
@@ -68,24 +65,48 @@ const { title, descr } = Astro.props
 	label {
 		display: flex;
 		flex-direction: column;
+		gap: .5em;
+	}
+	label>* {
+		font-weight: 400;
 	}
 	input, textarea {
-		background: transparent;
-		padding: 0.3em 0.5em;
-		border: none;
-		border-bottom: 1px solid black;
+		font-size: 18px;
+		background: white;
+		border-radius: .5em;
+		padding: .5em 1em;
+		border: 0;
+	}
+	textarea {
+		resize: vertical;
 	}
 	input:focus, textarea:focus {
-		outline: none;
-		background: #e3ded4;
+		outline: 3px solid #FFE49D;
+	}
+	h1, h2 {
+		line-height: 1.2;
+		margin: 0;
 	}
 	h1 {
-		font-size: 64px;
-		line-height: 1;
+		font-size: 2.5em;
 		text-align: center;
 	}
-	.abs { position: absolute;}
-	.rel { position: relative;}
+	h2 {
+		font-size: 1.5em;
+	}
+	a, .btn {
+		font-weight: 500;
+		text-decoration: none;
+		color: var(--text);
+	}
+	a:hover {
+		text-decoration: underline;
+		text-decoration-thickness: 3px;
+	}
+
+	.grow { flex: 1 }
+	.g2 {gap: .5em}
+	.g4 {gap: 1em}
 	.fc {
 		display: flex;
 		align-items: center;
@@ -102,76 +123,56 @@ const { title, descr } = Astro.props
 	.between {
 		justify-content: space-between;
 	}
-	.p4 { padding: 1em;}
-	.g4 { gap: 1em;}
-	.mo {
-		display: none;
-	}
-	
-	span {
-		font-weight: 400;
-	}
-	.error {
-		display: none;
-		color: var(--red);
-		background: #ffbbab;
-		padding: 1em;
+
+	.btn, .failure, .success {
+		padding: .5em 1em;
 		border-radius: 0.5em;
 	}
 
 	.btn {
-		padding: 0.5em 1em;
-		border-radius: 36px;
-		font-weight: 500;
-		color: white;
-		text-decoration: none;
+		display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5em;
 	}
-	.btn-brown {
-		background: var(--brown);
+
+	.btn-yellow { background: var(--yellow) }
+	.btn-yellow:hover { background: #FFD464 }
+	.btn-yellow:focus { outline: 3px solid #FFE49D }
+
+	.btn-red { color: white; background: var(--red) }
+	.btn-red:hover { background: #FF785A }
+	.btn-red:focus { outline: 3px solid #ffae9c }
+
+	.btn-green { color: white; background: var(--green) }
+	.btn-green:hover { background: #89C66F }
+	.btn-green:focus { outline: 3px solid #b2df9f }
+
+	.failure {
+		color: var(--red);
+		background: #ffcbc0;
 	}
-	.btn-brown:hover {
-		background: #493412;
+	.success {
+		color: #509d30;
+		background: #b7e8a2;
 	}
-	.btn-yellow {
-		background: var(--yellow);
-	}
-	.btn-yellow:hover {
-		background: #ffc861;
-	}
-	.btn-red {
-		background: var(--red);
-	}
-	.btn-red:hover {
-		background: #FF704F;
-	}
-	@media (max-width: 1420px) {
-		:root, input, textarea, button {
-			font-size: 20px;
-		}
-		h1 {
-			font-size: 52px;
-		}
+	::backdrop {
+		background: #00000080;
 	}
 	@media (max-width: 960px) {
-		:root, input, textarea, button {
+		:root, button {
 			font-size: 18px;
 		}
-		.do {
-			display: none;
-		}
-		.mo {
-			display: block;
-		}
-		h1 {
-			font-size: 36px;
+		input, textarea {
+			font-size: 16px;
 		}
 	}
 	@media (max-width: 700px) {
-		:root, input, textarea, button {
+		:root, button {
 			font-size: 16px;
 		}
-		h1 {
-			font-size: 30px;
+		input, textarea {
+			font-size: 14px;
 		}
 	}
 </style>

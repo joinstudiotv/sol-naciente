@@ -1,5 +1,5 @@
 ---
-import Admin from "../layouts/Admin.astro";
+import AdminL from "../layouts/AdminL.astro";
 
 const { cookies, redirect } = Astro;
 
@@ -7,28 +7,32 @@ const accessToken = cookies.get("sb-access-token");
 const refreshToken = cookies.get("sb-refresh-token");
 
 if (accessToken && refreshToken) {
-	return redirect("/dashboard");
+	return redirect("/admin");
 }
 
 const title = "Sol Naciente | Iniciar Sesión";
 const descr = "Iniciar Sesión para cambiar los empleos :p";
 ---
 
-<Admin {title} {descr}>
-	<main class="fcc">
-		<form class="fcol" action="/api/auth/signin" method="post" id="login-form">
-			<h1>Sol Naciente</h1>
+<AdminL {title} {descr}>
+	<main class="fcc fcol between">
+		<h1>Sol Naciente</h1>
+		<form class="fcol fc" action="/api/auth/signin" method="post" id="login-form">
+			<h2>Iniciar Sesión</h2>
 			<label for="email">
-				<span>Correo</span>
+				<span>Correo:</span>
 				<input type="email" name="email" id="email" placeholder="correo@gmail.com" required />
 			</label>
 			<label for="password">
-				<span>Contraseña</span>
+				<span>Contraseña:</span>
 				<input type="password" name="password" id="password" placeholder="••••••••" required/>
 			</label>
 			<button type="submit" class="btn btn-yellow">Ingresar</button>
-			<p id="error-message" class="error"></p>
+			<p id="error-message" class="failure"></p>
 		</form>
+		<footer>
+			<p>Hecho con ❤️ por <a href="https://www.instagram.com/joinstudio.tv/" target="_blank">Join Studio</a></p>
+		</footer>
 	</main>
 	<script>
 		const btn = document.querySelector('.btn-yellow') as HTMLButtonElement;
@@ -46,7 +50,7 @@ const descr = "Iniciar Sesión para cambiar los empleos :p";
 
 			// Limpiar mensajes de error previos
 			errorMessage.style.display = 'none';
-			errorMessage.textContent = '';
+			errorMessage.innerHTML = '';
 
 			// Enviar los datos usando fetch
 			try {
@@ -60,36 +64,42 @@ const descr = "Iniciar Sesión para cambiar los empleos :p";
 
 				// Procesar la respuesta
 				if (response.ok) {
-					window.location.href = '/dashboard';
+					window.location.href = '/admin';
 				} else {
 					errorMessage.style.display = 'block';
-					errorMessage.textContent = 'Credenciales incorrectas. Vuelva a intentarlo.'
+					errorMessage.innerHTML = '<strong>Error:</strong> Credenciales incorrectas.'
 				}
 			} catch (error) {
-				errorMessage.textContent = 'Estamos teniendo errores con el servidor.';
+				errorMessage.innerHTML = '<strong>Error:</strong> Problemas con el servidor.';
 			}
 
 			btn.innerText = 'Ingresar'
 		});
 	</script>
-</Admin>
+</AdminL>
 
 <style>
 	main {
 		min-height: 100dvh;
+		padding: 2em 1em;
+	}
+	form, label {
+		width: 100%;
 	}
 	form {
 		gap: 1em;
-		padding: 2em;
-		width: 100%;
-		max-width: 45ch;
+		padding: 2em 1em;
+		max-width: 480px;
 		background: var(--peach);
 		border-radius: 1em;
 	}
+	.failure {
+		display: none;
+		width: 100%;
+	}
 	@media (max-width: 700px) {
 		form {
-			margin: 1em;
-			padding: 2em 1em;
+			max-width: 400px;
 		}
 	}
 </style>

@@ -1,0 +1,396 @@
+---
+import AdminL from "../layouts/AdminL.astro";
+import { supabase } from "../lib/supabase";
+import { createClient } from '@vercel/kv';
+
+const accessToken = Astro.cookies.get("sb-access-token");
+const refreshToken = Astro.cookies.get("sb-refresh-token");
+
+if (!accessToken || !refreshToken) {
+	return Astro.redirect("/signin");
+}
+
+let session;
+try {
+	session = await supabase.auth.setSession({
+		refresh_token: refreshToken.value,
+		access_token: accessToken.value,
+	});
+	if (session.error) {
+		Astro.cookies.delete("sb-access-token", {
+			path: "/",
+		});
+		Astro.cookies.delete("sb-refresh-token", {
+			path: "/",
+		});
+		return Astro.redirect("/signin");
+	}
+} catch (error) {
+	Astro.cookies.delete("sb-access-token", {
+		path: "/",
+	});
+	Astro.cookies.delete("sb-refresh-token", {
+		path: "/",
+	});
+	return Astro.redirect("/signin");
+}
+
+const { KV_REST_API_URL, KV_REST_API_TOKEN } = import.meta.env;
+
+const kv = createClient({ url: KV_REST_API_URL, token: KV_REST_API_TOKEN });
+
+const email = await kv.get('email') as string;
+const phone = await kv.get('phone') as number;
+
+// Consulta a Supabase para obtener los empleos
+const { data: empleos, error } = await supabase
+  .from('empleos')  // Nombre de tu tabla en Supabase
+  .select('*');     // Selecciona todas las columnas, ajusta según tu estructura
+
+	// Verifica si hay un error
+if (error) {
+  console.error('Error al cargar los empleos:', error);
+}
+
+const title = "Sol Naciente | Admin";
+const descr = "Dashboard para editar la información de la página";
+---
+
+<AdminL {title} {descr}>
+	<main class="fcc fcol">
+		<h1>Bienvenido Denis</h1>
+		<p>Este es el administrador de su página web. Aquí podrá cambiar el contenido que muestra en su página.</p>
+		<div class="forms g4">
+			<form class="pyc g4" action="/api/admin/update" method="post" id="pyc-form">
+				<h2>Info de contacto</h2>
+				<label for="phone">
+					<span>Número de teléfono:</span>
+					<input type="text" name="phone" id="phone" placeholder="910880595" value={phone} required />
+				</label>
+				<label for="email">
+					<span>Correo empresarial:</span>
+					<input type="email" name="email" id="email" placeholder="correo@gmail.com" value={email} required />
+				</label>
+				<button class="btn btn-yellow" type="submit">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+					Guardar
+				</button>
+			</form>
+			<div class="empleos g4 between">
+				<div class="fcol g4">
+					<h2>Puestos Disponibles</h2>
+					<div class="fcol g2">
+						{empleos && empleos.map((empleo) => (
+							<article class="fc between g4">
+								<p class="grow">{empleo.name}</p>
+								<button class="edit" type="button" title="Editar puesto" data-id={empleo.id} data-name={empleo.name} data-content={empleo.content}>
+									<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+								</button>
+								<button class="delete" type="button" title="Eliminar puesto" data-id={empleo.id}>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+								</button>
+							</article>
+						))}
+					</div>
+				</div>
+				<button type="button" class="btn btn-green">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-plus"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 15h6"/><path d="M12 18v-6"/></svg>
+					Crear Nuevo Puesto
+				</button>
+			</div>
+			<form class="signout fc" action="/api/auth/signout">
+				<button class="btn btn-red" type="submit">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+					Cerrar Sesión
+				</button>
+			</form>
+		</div>
+		<footer>
+			<p>Hecho con ❤️ por <a href="https://www.instagram.com/joinstudio.tv/" target="_blank">Join Studio</a></p>
+		</footer>
+		<p class="message failure hidden">Error al hacer algo</p>
+		<p class="message success hidden">✓ Cambio realizado con éxito</p>
+		<dialog class="edit-modal">
+			<form class="fcol g4" id="edit-form">
+				<h2 class="fc between">
+					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="transparent" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"></svg>
+					Editar Puesto
+					<button type="button" class="close-edit-form">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B5B7C6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+					</button>
+				</h2>
+				<input class="hidden" type="text" name="id" id="edit-id">
+				<label for="edit-name">
+					<span>Nombre:</span>
+					<input type="text" name="name" id="edit-name" placeholder="Servicio al Cliente - Planta Cerro Colorado" required>
+				</label>
+				<label for="edit-desc">
+					<span>Descripción:</span>
+					<textarea name="desc" id="edit-desc" placeholder="<h1>Título</h1>" rows="6" required></textarea>
+				</label>
+				<button class="btn btn-yellow" type="submit">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+					Guardar
+				</button>
+			</form>
+		</dialog>
+	</main>
+	<script>
+		const success = document.querySelector('.success') as HTMLElement
+		const failure = document.querySelector('.failure') as HTMLElement
+
+		const edit_modal = document.querySelector('.edit-modal') as HTMLDialogElement
+
+		const tyc_submit = document.querySelector('.pyc button') as HTMLButtonElement
+		const edit_submit = document.querySelector('.edit-modal .btn') as HTMLButtonElement
+
+		const edit_btns = document.querySelectorAll('.edit')
+		const delete_btns = document.querySelectorAll('.delete')
+
+		const edit_id = document.querySelector('#edit-id') as HTMLInputElement
+		const edit_name = document.querySelector('#edit-name') as HTMLInputElement
+		const edit_desc = document.querySelector('#edit-desc') as HTMLInputElement
+
+		function show_error(msg: string) {
+			failure.innerHTML = msg
+			failure.classList.remove('hidden');
+			setTimeout(() => {
+				failure.classList.add('hidden');
+			}, 2000);
+		}
+
+		function show_success() {
+			success.classList.remove('hidden');
+			setTimeout(() => {
+				success.classList.add('hidden');
+			}, 2000);
+		}
+
+		// cerrar edit 
+		document.querySelector('.close-edit-form')?.addEventListener('click', () => {
+			edit_modal.close()
+		})
+
+		// cambio de número & email
+		document.getElementById('pyc-form')?.addEventListener('submit', async (e: Event) => {
+			e.preventDefault();
+
+			// Mensaje de carga
+			tyc_submit.textContent = 'Cargando...'
+
+			// Obtener los datos del formulario
+			const email = (document.getElementById('email') as HTMLInputElement).value;
+			const phone = (document.getElementById('phone') as HTMLInputElement).value;
+
+			// confirmar que el teléfono tenga 9 dígitos
+			if (phone.length !== 9) {
+				show_error('<strong>Error:</strong> El número de teléfono debe de tener al menos 9 dígitos');
+			}
+
+			// Enviar los datos usando fetch
+			try {
+				const response = await fetch('/api/admin/update', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ email, phone })
+				});
+
+				// Procesar la respuesta
+				if (response.ok) {
+					show_success();
+				} else {
+					show_error('<strong>Error:</strong> Problemas con el servidor.')
+				}
+			} catch (error) {
+				show_error('<strong>Error:</strong> Problemas con el servidor.')
+			}
+
+			tyc_submit.textContent = 'Guardar';
+		});
+
+		// Editar puestos
+		document.getElementById('edit-form')?.addEventListener('submit', async (e: Event) => {
+			e.preventDefault();
+
+			// Mensaje de carga
+			edit_submit.textContent = 'Cargando...'
+
+			// Obtener los datos del formulario
+			const id = (document.getElementById('edit-id') as HTMLInputElement).value;
+			const name = (document.getElementById('edit-name') as HTMLInputElement).value;
+			const desc = (document.getElementById('edit-desc') as HTMLTextAreaElement).value;
+
+			// Enviar los datos usando fetch
+			try {
+				const response = await fetch('/api/empleos/update', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ id, name, desc })
+				});
+
+				// Procesar la respuesta
+				if (response.ok) {
+					show_success();
+				} else {
+					show_error('<strong>Error:</strong> Problemas con el servidor.')
+				}
+			} catch (error) {
+				show_error('<strong>Error:</strong> Problemas con el servidor.')
+			}
+
+			edit_submit.textContent = 'Guardar';
+		});
+
+		edit_btns.forEach(btn => {
+			btn.addEventListener('click', () => {
+				edit_id.value = btn.getAttribute('data-id') as string
+				edit_name.value = btn.getAttribute('data-name') as string
+				edit_desc.value = btn.getAttribute('data-content') as string
+				edit_modal.showModal()
+			});
+		})
+
+		delete_btns.forEach(btn => {
+			btn.addEventListener('click', async () => {
+				// quitar el elemento de JS
+				// mandar el texto a la api
+				// mostrar mensaje de eliminado con éxito
+				const id = btn.getAttribute('data-id');
+
+				if (!id) {
+					show_error('<strong>Error:</strong> No se pudo obtener el ID del empleo.');
+					return;
+				}
+
+				// Confirmación antes de eliminar
+				if (!confirm('¿Estás seguro de que quieres eliminar este empleo?')) {
+					return;
+				}
+
+				// Enviar solicitud para eliminar el empleo
+				try {
+					const response = await fetch('/api/empleos/delete', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ id })
+					});
+
+					if (response.ok) {
+						// Eliminar el elemento del DOM
+						const article = btn.closest('article');
+						if (article) {
+							article.remove();
+						}
+						show_success();
+					} else {
+						show_error('<strong>Error:</strong> Problemas con el servidor.');
+					}
+				} catch (error) {
+					show_error('<strong>Error:</strong> Problemas con el servidor.');
+				}
+			})
+		})
+	</script>
+</AdminL>
+
+<style>
+	.hidden {
+		display: none;
+	}
+	article {
+		border-radius: .5em;
+		padding: .5em 1em;
+		background: var(--bg);
+		font-weight: 600;
+	}
+	article p {
+		text-align: start;
+		max-width: unset;
+	}
+	dialog {
+		margin: auto;
+		width: calc(100% - 2em);
+		max-width: 830px;
+		background: var(--peach);
+		border-radius: 1em;
+		padding: 2em 1em;
+		border: 0;
+		top: 0;
+		bottom: 0;
+	}
+	dialog form {
+		width: 100%;
+	}
+	dialog[open] {
+    display: flex;
+	}
+	dialog .btn {
+		align-self: center;
+	}
+	.message {
+		position: fixed;
+		top: 1em;
+
+		transition: all 0.5s ease-in-out;
+	}
+	.message.hidden {
+		transform: translateY(-4em);
+    opacity: 0;
+	}
+	main {
+		padding: 4em 1em;
+		min-height: 100dvh;
+		gap: 2em;
+	}
+	h1, h2 {
+		margin: 0;
+	}
+	p {
+		max-width: 55ch;
+		text-align: center;
+	}
+	.forms {
+		width: 100%;
+		max-width: 1240px;
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+	}
+	.pyc, .empleos, .signout {
+		display: flex;
+		flex-direction: column;
+
+		background: var(--peach);
+		border-radius: 1em;
+		padding: 2em 1em;
+	}
+	.empleos {
+		grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column: 2;
+	}
+	.pyc {
+		max-width: 400px;
+	}
+	.pyc button {
+		align-self: center;
+	}
+	@media (max-width: 700px) {
+		.btn {
+			width: 100%;
+		}
+		.pyc {
+			max-width: 700px;
+		}
+		.forms {
+			grid-template-columns: 1fr;
+			align-self: stretch;
+		}
+		.empleos {
+			grid-row-start: unset;
+			grid-row-end: unset;
+			grid-column: unset;
+		}
+	}
+</style>
