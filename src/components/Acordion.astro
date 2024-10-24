@@ -1,4 +1,6 @@
 ---
+import { marked } from 'marked';
+
 const { value, content } = Astro.props;
 ---
 
@@ -8,7 +10,7 @@ const { value, content } = Astro.props;
 		{value}
 	</div>
 	<div class="collapse-content">
-		<Fragment set:html={content} />
+		<Fragment set:html={marked.parse(content)} />
 		<button class="btn btn-yellow postular" type="button">Postular</button>
 	</div>
 </div>

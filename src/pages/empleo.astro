@@ -17,8 +17,9 @@ const phone = await kv.get('phone') as string;
 
 // Consulta a Supabase para obtener los empleos
 const { data: empleos, error } = await supabase
-  .from('empleos')  // Nombre de tu tabla en Supabase
-  .select('*');     // Selecciona todas las columnas, ajusta según tu estructura
+  .from('empleos')
+  .select('*')
+	.order('created_at', { ascending: false });
 
 // Verifica si hay un error
 if (error) {
