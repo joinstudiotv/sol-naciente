@@ -78,6 +78,14 @@ const descr = "...";
 			<img src="/images/valores.avif" alt="Platillo bien preparado">
 		</div>
 	</section>
+	<section class="clientes fcol">
+		<h1>Nuestros Clientes</h1>
+		<div class="lista fc">
+			<img src="/images/alpaca.avif" alt="Platillo bien preparado">
+			<img src="/images/dalsa.avif" alt="Platillo bien preparado">
+			<img src="/images/parque_esperanza.avif" alt="Platillo bien preparado">
+		</div>
+	</section>
 </Layout>
 
 <style>
@@ -173,6 +181,20 @@ const descr = "...";
 		aspect-ratio: unset;
 		height: 100%;
 	}
+	.clientes {
+		padding: 144px 64px;
+		gap: 64px;
+	}
+	.lista {
+		display: grid;
+		grid-template-columns: 1fr 0.5fr 1fr;
+		gap: 144px;
+		width: 100%;
+	}
+	.lista img {
+		width: 100%;
+		flex: 1;
+	}
 	article {
 		padding: 64px 32px;
 		gap: 32px;
@@ -199,6 +221,15 @@ const descr = "...";
 		}
 		.card {
 			margin: 64px;
+		}
+		.big-img {
+			height: calc(100% + 192px);
+		}
+		.clientes {
+			padding: 96px 32px;
+		}
+		.lista {
+			gap: 64px;
 		}
 	}
 	
@@ -234,6 +265,14 @@ const descr = "...";
 		}
 		.card img {
 			grid-row: 1;
+		}
+		.big-img {
+			height: 100%;
+		}
+		.lista {
+			padding: 32px;
+			gap: 64px;
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
