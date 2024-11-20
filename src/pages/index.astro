@@ -9,16 +9,16 @@ const descr = "...";
 <Layout {title} {descr}>
 	<section class="hero rel">
 		<div class="rel">
-			<video autoplay loop muted preload="auto" width="1920" height="1080" poster="/poster.avif">
-				<source src="/output.webm" type="video/webm">
+			<video autoplay playsinline loop muted preload="auto" width="1920" height="1080" poster="/poster.avif">
+				<source src="/comprimed2.mp4" type="video/mp4">
 				Your browser does not support the video tag.
 			</video>
 			<div class="color abs"></div>
 		</div>
-		<svg class="deco abs do" width="1240" height="40" viewBox="0 0 1240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg class="deco do" width="1240" height="40" viewBox="0 0 1240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M0 0C186.083 25.577 396.792 40 620 40C843.208 40 1053.92 25.577 1240 0H0Z" fill="white"/>
 		</svg>
-		<svg class="deco abs mo" width="1240" height="80" viewBox="0 0 1240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg class="deco mo" width="1240" height="80" viewBox="0 0 1240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M0 0C186.083 51.154 396.792 80 620 80C843.208 80 1053.92 51.154 1240 0H0Z" fill="white"/>
 		</svg>
 		<div class="abs big">
@@ -79,6 +79,16 @@ const descr = "...";
 		</div>
 	</section>
 	<section class="clientes fcol">
+		<svg class="decoco deco1" width="437" height="692" viewBox="0 0 437 692" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M3.56299 42.2018L111.863 244.302C116.563 250.302 124.963 252.302 131.763 248.702C131.763 248.702 218.263 416.802 261.463 500.802C266.563 512.302 270.363 526.802 267.363 542.202C261.063 573.402 225.563 597.702 227.663 631.502C231.463 693.002 310.763 699.902 356.263 685.202C408.463 668.402 470.563 578.702 414.363 534.002C387.863 513.002 347.563 528.202 318.463 515.502C303.963 509.202 294.263 497.702 287.863 487.002L155.263 236.402C162.063 232.902 165.263 224.802 163.063 217.502L59.163 13.1018C47.563 -19.3982 -15.937 15.6018 3.76299 42.0018L3.56299 42.2018Z" fill="#EFECE8"/>
+		</svg>
+		<svg class="decoco deco2" width="276" height="797" viewBox="0 0 276 797" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M178.4 328.2C185.1 312.7 201 302.6 206 286.6C217.2 250.8 162.6 77.6997 143.8 15.3997C136.5 -8.79105 108.5 -1.50038 117.1 27.4997L166 228C172.826 256.6 142.5 262.5 135.5 236.5C135.5 236.5 96.6998 73.3997 88.4998 36.6996C83.0376 13.0298 52.1314 17.7721 58.4997 43.4999C74.1997 107.3 104.5 244.5 104.5 244.5C110.178 270.5 80.9997 277 74.9997 252.5L28.5 47C23.4997 23 -2.77545 26 1.19984 52.5997C10.8998 117.5 43.4997 286.6 50.9997 302.5C62.5261 326.936 72.4997 327.2 94.9997 339.5C118.9 349.5 125.4 384 125.4 384C138.2 451.2 188.7 718.4 191.6 734.9C194.5 751.4 210.1 803.6 249.2 795.7C288.7 787.7 274.2 731.8 269.4 714C255.4 662.7 181.9 394.3 177.1 372.4C177.1 372.4 167.732 352.817 178.4 328.2Z" fill="#EFECE8"/>
+		</svg>
+		<svg class="decoco deco3" width="559" height="471" viewBox="0 0 559 471" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 470.2C17.5 417.6 36.8 396.1 77.5 352.1C118.2 308.1 178.7 247.9 265.8 153.2C266.4 152.6 296.4 183.1 301.5 185.4C306.2 187.5 312.3 186.1 317.2 186.2C316.9 185.6 312.3 178 312.2 178C320.9 170.4 329.6 162.8 338.4 155.2C338.4 155.2 355.8 160.4 358.7 159.8C367.1 158.1 373 150.5 377.9 144.1C402.6 112.6 424.1 78.9002 451.5 49.5002C469.5 30.2002 491.9 14.6002 515.9 3.50018C540.7 -7.99982 568.5 12.1002 554.9 39.6002C112.7 426.5 136.2 459 0 470.2Z" fill="#EFECE8"/>
+		</svg>
+		<img src="/images/cubiertos.avif" alt="Platillo bien preparado">
 		<h1>Nuestros Clientes</h1>
 		<div class="lista fc">
 			<img src="/images/alpaca.avif" alt="Platillo bien preparado">
@@ -91,6 +101,22 @@ const descr = "...";
 <style>
 	.deco {
 		top: 0;
+		position: absolute;
+	}
+	.decoco {
+		width: unset;
+		position: absolute;
+		z-index: -1;
+	}
+	.deco1 {
+    left: -15%;
+    bottom: 32%;
+	}
+	.deco2 {
+		right: 0;
+	}
+	.deco3 {
+		left: 25%;
 	}
 	.cards {
 		display: grid;
@@ -142,7 +168,6 @@ const descr = "...";
 	.hero video {
 		height: unset;
     width: 100%;
-    /* aspect-ratio: 2; */
 		aspect-ratio: auto 1736 / 971;
 	}
 	.platillos {
@@ -182,13 +207,24 @@ const descr = "...";
 		height: 100%;
 	}
 	.clientes {
-		padding: 144px 64px;
+		padding: 17vw 32px 128px;
+		position: relative;
 		gap: 64px;
+		overflow: hidden;
+	}
+	.clientes>img {
+		width: 100%;
+		height: unset;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		filter: brightness(0) saturate(100%) invert(9%) sepia(57%) saturate(917%) hue-rotate(3deg) brightness(95%) contrast(96%);
 	}
 	.lista {
 		display: grid;
-		grid-template-columns: 1fr 0.5fr 1fr;
-		gap: 144px;
+		grid-template-columns: 6fr 2fr 5fr;
+		gap: 9vw;
 		width: 100%;
 	}
 	.lista img {
@@ -200,10 +236,10 @@ const descr = "...";
 		gap: 32px;
 	}
 	@media (max-width: 1420px) {
-		.platillos {
+		.platillos, .clientes {
 			padding: 256px 16px 64px;
 		}
-		.platillos img {
+		.platillos img, .clientes>img {
 			height: 212px;
 		}
 	}
@@ -224,12 +260,6 @@ const descr = "...";
 		}
 		.big-img {
 			height: calc(100% + 192px);
-		}
-		.clientes {
-			padding: 96px 32px;
-		}
-		.lista {
-			gap: 64px;
 		}
 	}
 	
@@ -252,10 +282,10 @@ const descr = "...";
 			grid-template-columns: 1fr;
 			padding: 32px 16px;
 		}
-		.platillos {
+		.platillos, .clientes {
 			padding: 128px 16px 32px;
 		}
-		.platillos img {
+		.platillos img, .clientes>img {
 			height: 100px;
 		}
 		.card {
