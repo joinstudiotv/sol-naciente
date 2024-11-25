@@ -1,8 +1,16 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 
+import mostrar_comida from "../images/mostrar_comida.jpg";
+import todos from "../images/todos_listos.avif";
+import fuego from "../images/fuego.avif";
+import carnes from "../images/meter_carnes.avif";
+import denis from "../images/denis_plato.png";
+import feliz_mostrando_plato from "../images/feliz_mostrando_plato.png";
+
 const title = "Sol Naciente | Galería";
-const descr = "...";
+const descr = "Explora nuestra galería y conoce cómo nuestros platillos y servicios transforman la experiencia culinaria corporativa y eventos en algo inolvidable.";
 ---
 
 <Layout {title} {descr}>
@@ -29,63 +37,57 @@ const descr = "...";
 	<p>Dale un vistazo a nuestros <strong>deliciosos</strong> platillos y a nuestras <strong>modernas</strong> instalaciones.</p>
 	<article>
 		<div class="img">
-			<img
-				src="/images/gallery/img1.avif"
-				width="998"
-				height="652"
-				loading="lazy"
-				decoding="async"
-				alt="A very cool penguin!"
+			<Image
+				src={mostrar_comida}
+				alt="Cocinero de Sol Naciente"
+				width={mostrar_comida.width/2}
+				densities={[1,2]}
+				format="avif"
 			/>
 		</div>
 		<div class="img sec">
-			<img
-				src="/images/gallery/img4.avif"
-				width="958"
-				height="1344"
-				loading="lazy"
-				decoding="async"
-				alt="A very cool penguin!"
+			<Image
+				src={carnes}
+				alt="Cocinero de Sol Naciente"
+				width={carnes.width/2}
+				densities={[1,2]}
+				format="avif"
 			/>
 		</div>
 		<div class="img">
-			<img
-				src="/images/gallery/img3.avif"
-				width="998"
-				height="652"
-				loading="lazy"
-				decoding="async"
-				alt="A very cool penguin!"
+			<Image
+				src={fuego}
+				alt="Cocinero de Sol Naciente"
+				width={fuego.width/2}
+				densities={[1,2]}
+				format="avif"
 			/>
 		</div>
 		<div class="img">
-			<img
-				src="/images/gallery/img5.avif"
-				width="998"
-				height="654"
-				loading="lazy"
-				decoding="async"
-				alt="A very cool penguin!"
+			<Image
+				src={denis}
+				alt="Cocinero de Sol Naciente"
+				width={denis.width/2}
+				densities={[1,2]}
+				format="avif"
 			/>
 		</div>
 		<div class="img">
-			<img
-				src="/images/gallery/img6.avif"
-				width="958"
-				height="598"
-				loading="lazy"
-				decoding="async"
-				alt="A very cool penguin!"
+			<Image
+				src={todos}
+				alt="Cocinero de Sol Naciente"
+				width={todos.width/2}
+				densities={[1,2]}
+				format="avif"
 			/>
 		</div>
 		<div class="img last">
-			<img
-				src="/images/gallery/img2.avif"
-				width="2002"
-				height="652"
-				loading="lazy"
-				decoding="async"
-				alt="A very cool penguin!"
+			<Image
+				src={feliz_mostrando_plato}
+				alt="Cocinero de Sol Naciente"
+				width={feliz_mostrando_plato.width/2}
+				densities={[1,2]}
+				format="avif"
 			/>
 		</div>
 	</article>

@@ -1,9 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
+import valores from "../images/valores.png";
+
 const title = "Sol Naciente";
-const descr = "Somos una empresa de servicios de alimentación corporativa en Arequipa. Realizamos concesionario de alimentos, cafeterías corporativas, catering, buffets y banquetes.";
+const descr = "Somos una empresa de servicios de alimentación corporativa en Arequipa. Ofrecemos concesionarios de alimentos, catering, buffets y cafeterías. ¡Mejora el bienestar laboral!";
 ---
 
 <Layout {title} {descr}>
@@ -73,9 +76,9 @@ const descr = "Somos una empresa de servicios de alimentación corporativa en Ar
 					diseñado para aportar bienestar a nuestros clientes, con un enfoque
 					sostenible y comprometido con el entorno.
 				</p>
-				<a class="btn btn-yellow" href="/about">Conócenos</a>
+				<a class="btn btn-yellow" href="/nosotros">Conócenos</a>
 			</article>
-			<img src="/images/valores.avif" alt="Platillo bien preparado">
+			<Image src={valores} alt="Cocinero de Sol Naciente" width={valores.width/2} densities={[1,2]} format="avif"/>
 		</div>
 	</section>
 	<section class="clientes fcol">
