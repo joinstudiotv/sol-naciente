@@ -1,11 +1,17 @@
 ---
-import { Image } from "astro:assets"
-
-const { name, desc, text, src } = Astro.props
+const { name, desc, text, src1, src2, width, height } = Astro.props
 ---
 <article>
 	<div class="rel">
-		<Image {src} width={src.width / 2} densities={[1,2]} alt={name} format="avif"/>
+		<img
+			src={src1}
+			srcset={`${src1} 1x, ${src2} 2x"`}
+			{width}
+			{height}
+			loading="lazy"
+			decoding="async"
+			alt="Cocinero de Sol Naciente"
+		>
 		<section class="abs fcol">
 			<h2>{name}</h2>
 			<p>{desc}</p>

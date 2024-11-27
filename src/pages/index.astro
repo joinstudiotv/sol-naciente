@@ -1,14 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
-import orgullo from "../images/index/orgullo.jpg";
-import innovacion from "../images/index/innovacion.jpg";
-import valores from "../images/index/valores.png";
-
 const title = "Sol Naciente";
-const descr = "Somos una empresa de servicios de alimentación corporativa en Arequipa. Ofrecemos concesionarios de alimentos, catering, buffets y cafeterías. ¡Mejora el bienestar laboral!";
+const descr = "Somos una empresa de servicios de alimentación corporativa en Arequipa. Ofrecemos concesionarios de alimentos para empresas. ¡Mejora el bienestar laboral!";
 ---
 
 <Layout {title} {descr}>
@@ -40,13 +35,19 @@ const descr = "Somos una empresa de servicios de alimentación corporativa en Ar
 	</section>
 	<section class="cards">
 		<Card
-			src={orgullo}
+			src1="/images/index/orgullo_1x.avif"
+			src2="/images/index/orgullo_2x.avif"
+			width="600"
+			height="400"
 			name="ORGULLO"
 			desc="Pasión por la calidad"
 			text="Nos enorgullece ofrecer alimentos de la más alta calidad, siempre frescos y con ingredientes seleccionados cuidadosamente para garantizar sabor y bienestar."
 		/>
 		<Card
-			src={innovacion}
+			src1="/images/index/innovacion_1x.avif"
+			src2="/images/index/innovacion_2x.avif"
+			width="600"
+			height="400"
 			name="INNOVACIÓN"
 			desc="Soluciones modernas"
 			text="Nos adaptamos a las últimas tendencias en alimentación y tecnología, brindando opciones innovadoras como estaciones de comida móvil y menús personalizados."
@@ -74,7 +75,15 @@ const descr = "Somos una empresa de servicios de alimentación corporativa en Ar
 				</p>
 				<a class="btn btn-yellow" href="/nosotros">Conócenos</a>
 			</article>
-			<Image src={valores} alt="Cocinero de Sol Naciente" width={valores.width/2} densities={[1,2]} format="avif"/>
+			<img
+				src="/images/index/valores_1x.avif"
+				srcset="/images/index/valores_1x.avif 1x, /images/index/valores_2x.avif 2x"
+				width="501"
+				height="500"
+				loading="lazy"
+				decoding="async"
+				alt="Cocinera de Sol Naciente"
+			>
 		</div>
 	</section>
 	<section class="clientes fcol">

@@ -1,13 +1,5 @@
 ---
-import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-
-import mostrar_comida from "../images/mostrar_comida.jpg";
-import todos from "../images/todos_listos.avif";
-import fuego from "../images/fuego.avif";
-import carnes from "../images/meter_carnes.avif";
-import denis from "../images/denis_plato.png";
-import feliz_mostrando_plato from "../images/feliz_mostrando_plato.png";
 
 const title = "Sol Naciente | Galería";
 const descr = "Explora nuestra galería y conoce cómo nuestros platillos y servicios transforman la experiencia culinaria corporativa y eventos en algo inolvidable.";
@@ -37,58 +29,70 @@ const descr = "Explora nuestra galería y conoce cómo nuestros platillos y serv
 	<p>Dale un vistazo a nuestros <strong>deliciosos</strong> platillos y a nuestras <strong>modernas</strong> instalaciones.</p>
 	<article>
 		<div class="img">
-			<Image
-				src={mostrar_comida}
-				alt="Cocinero de Sol Naciente"
-				width={mostrar_comida.width/2}
-				densities={[1,2]}
-				format="avif"
-			/>
+			<img
+				src="/images/gallery/first_1x.avif"
+				srcset="/images/gallery/first_1x.avif 1x, /images/gallery/first_2x.avif 2x"
+				width="501"
+				height="334"
+				loading="lazy"
+				decoding="async"
+				alt="Platillos de Catering preparados"
+			>
 		</div>
 		<div class="img sec">
-			<Image
-				src={carnes}
+			<img
+				src="/images/gallery/second_1x.avif"
+				srcset="/images/gallery/second_1x.avif 1x, /images/gallery/second_2x.avif 2x"
+				width="500"
+				height="750"
+				loading="lazy"
+				decoding="async"
 				alt="Cocinero de Sol Naciente"
-				width={carnes.width/2}
-				densities={[1,2]}
-				format="avif"
-			/>
+			>
 		</div>
 		<div class="img">
-			<Image
-				src={fuego}
+			<img
+				src="/images/gallery/third_1x.avif"
+				srcset="/images/gallery/third_1x.avif 1x, /images/gallery/third_2x.avif 2x"
+				width="500"
+				height="333"
+				loading="lazy"
+				decoding="async"
 				alt="Cocinero de Sol Naciente"
-				width={fuego.width/2}
-				densities={[1,2]}
-				format="avif"
-			/>
+			>
 		</div>
 		<div class="img">
-			<Image
-				src={denis}
+			<img
+				src="/images/gallery/fourth_1x.avif"
+				srcset="/images/gallery/fourth_1x.avif 1x, /images/gallery/fourth_2x.avif 2x"
+				width="500"
+				height="333"
+				loading="lazy"
+				decoding="async"
 				alt="Cocinero de Sol Naciente"
-				width={denis.width/2}
-				densities={[1,2]}
-				format="avif"
-			/>
+			>
 		</div>
 		<div class="img">
-			<Image
-				src={todos}
+			<img
+				src="/images/gallery/fifth_1x.avif"
+				srcset="/images/gallery/fifth_1x.avif 1x, /images/gallery/fifth_2x.avif 2x"
+				width="1000"
+				height="667"
+				loading="lazy"
+				decoding="async"
 				alt="Cocinero de Sol Naciente"
-				width={todos.width/2}
-				densities={[1,2]}
-				format="avif"
-			/>
+			>
 		</div>
 		<div class="img last">
-			<Image
-				src={feliz_mostrando_plato}
+			<img
+				src="/images/gallery/sixth_1x.avif"
+				srcset="/images/gallery/sixth_1x.avif 1x, /images/gallery/sixth_2x.avif 2x"
+				width="1000"
+				height="667"
+				loading="lazy"
+				decoding="async"
 				alt="Cocinero de Sol Naciente"
-				width={feliz_mostrando_plato.width/2}
-				densities={[1,2]}
-				format="avif"
-			/>
+			>
 		</div>
 	</article>
 </Layout>
