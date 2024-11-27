@@ -5,7 +5,7 @@ const { name, desc, text, src } = Astro.props
 ---
 <article>
 	<div class="rel">
-		<Image {src} width={src.width / 2} densities={[1.5,2]} alt={name} format="avif"/>
+		<Image {src} width={src.width / 2} densities={[1,2]} alt={name} format="avif"/>
 		<section class="abs fcol">
 			<h2>{name}</h2>
 			<p>{desc}</p>
