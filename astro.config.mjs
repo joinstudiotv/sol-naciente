@@ -7,6 +7,7 @@ export default defineConfig({
   trailingSlash: 'never',
   output: 'server',
   adapter: vercel({
-    imageService: false,
+    imageService: true,
+    devImageService: 'sharp'
   })
 });
