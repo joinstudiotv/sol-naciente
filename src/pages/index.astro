@@ -3,7 +3,9 @@ import { Image } from "astro:assets";
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
-import valores from "../images/valores.png";
+import orgullo from "../images/index/orgullo.jpg";
+import innovacion from "../images/index/innovacion.jpg";
+import valores from "../images/index/valores.png";
 
 const title = "Sol Naciente";
 const descr = "Somos una empresa de servicios de alimentación corporativa en Arequipa. Ofrecemos concesionarios de alimentos, catering, buffets y cafeterías. ¡Mejora el bienestar laboral!";
@@ -38,19 +40,13 @@ const descr = "Somos una empresa de servicios de alimentación corporativa en Ar
 	</section>
 	<section class="cards">
 		<Card
-			src1="card1_1x"
-			src2="card1_2x"
-			width="640"
-			height="360"
+			src={orgullo}
 			name="ORGULLO"
 			desc="Pasión por la calidad"
 			text="Nos enorgullece ofrecer alimentos de la más alta calidad, siempre frescos y con ingredientes seleccionados cuidadosamente para garantizar sabor y bienestar."
 		/>
 		<Card
-			src1="card2_1x"
-			src2="card2_2x"
-			width="384"
-			height="256"
+			src={innovacion}
 			name="INNOVACIÓN"
 			desc="Soluciones modernas"
 			text="Nos adaptamos a las últimas tendencias en alimentación y tecnología, brindando opciones innovadoras como estaciones de comida móvil y menús personalizados."
